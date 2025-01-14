@@ -1,33 +1,35 @@
-import { useContext } from 'react'
-import logo from '../../assets/main_logo.jpg'
+import { useContext } from "react";
+import logo from "../../assets/main_logo.jpg";
 // import { AuthContext } from '../providers/AuthProvider'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   // const { user, logOut } = useContext(AuthContext)
   return (
-    <div className='navbar text-base-100 container px-4 mx-auto'>
-      <div className='flex-1'>
-        <Link to='/' className='flex gap-2 items-center'>
-          <img className='w-auto h-7' src={logo} alt='TourHub Logo' />
-          <span className='font-bold text-2xl'>TourHub</span>
+    <div className="navbar text-base-100 container px-4 mx-auto">
+      <div className="flex-1">
+        <Link to="/" className="flex gap-2 items-center">
+          <img className="w-auto h-7 " src={logo} alt="TourHub Logo" />
+          <span className="font-bold text-2xl">TourHub</span>
         </Link>
       </div>
-      <div className='flex-none'>
-        <ul className='menu menu-horizontal px-1'>
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1">
           <li>
-            <Link to='/'>Home</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to='/community'>Community</Link>
+            <Link to="/community">Community</Link>
           </li>
           <li>
-            <Link to='/about-us'>About Us</Link>
+            <Link to="/about-us">About Us</Link>
           </li>
           <li>
-            <Link to='/trips'>Trips</Link>
+            <Link to="/trips">Trips</Link>
           </li>
-
+          <li>
+            <Link to="/login">Login/Register</Link>
+          </li>
           {/* {!user && (
             <li>
               <Link to='/login'>Login/Register</Link>
@@ -81,7 +83,7 @@ const Navbar = () => {
         )} */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
