@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import logo from "../../assets/main_logo.jpg";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
@@ -15,17 +14,17 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     try {
       const result = await userGoogleLogin();
-      
+
       Swal.fire({
         position: "center",
         icon: "success",
         title: `User successfully logged in!!!`,
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       });
-      navigate(from, { replace: true })
+      navigate(from, { replace: true });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -39,15 +38,15 @@ const Login = () => {
 
     try {
       //User Login
-      await userLogin(email, password)
+      await userLogin(email, password);
       Swal.fire({
-              position: "center",
-              icon: "success",
-              title: `User successfully logged in!!!`,
-              showConfirmButton: false,
-              timer: 1500
-            });
-      navigate(from, { replace: true })
+        position: "center",
+        icon: "success",
+        title: `User successfully logged in!!!`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate(from, { replace: true });
     } catch (err) {
       setLoginError(err.code);
     }
@@ -123,10 +122,16 @@ const Login = () => {
               type="password"
               required
             />
+            <label className="label">
+              <Link
+                to="/reset-password"
+                className="label-text-alt link link-hover text-[#4A90E2]"
+              >
+                Forgot password?
+              </Link>
+            </label>
           </div>
-          {
-            loginError && <p className="text-red-500 mb-3">{loginError}</p>
-          }
+          {loginError && <p className="text-red-500 mb-3">{loginError}</p>}
           {/* Submit Button */}
           <button
             type="submit"

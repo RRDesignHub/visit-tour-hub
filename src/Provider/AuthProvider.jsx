@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../Firebase/Firebase.init";
@@ -69,6 +70,13 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // forgot password/reset password
+  const passwordReset = (email) =>{
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email)
+  }
+
+
   // user signout:
   const logOut = async () => {
     setLoading(true);
@@ -82,15 +90,17 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         setUser(currentUser);
 
-       
-        // const {data} = await axios.post(`${import.meta.env.VITE_API}/jwt`, {email: currentUser.email}, {withCredentials:true})
-        // console.log(data)
+      //  get jwt token from server
+        const {data} = await axios.post(`${import.meta.env.VITE_SERVER_API}/jwt`, {email: currentUser?.email})
+        if(data?.token){
+          localStorage.setItem("access-token", data?.token)
+          setLoading(false);
+        }
       } else {
         setUser(currentUser);
-        // const {data} = await axios.get(`${import.meta.env.VITE_API}/logoutJWT`, {withCredentials:true})
-        // console.log(data)
+        localStorage.removeItem('access-token')
+        setLoading(false);
       }
-      setLoading(false);
     });
     return () => {
       return unsubscribe();
@@ -106,6 +116,7 @@ const AuthProvider = ({ children }) => {
     userLogin,
     userGoogleLogin,
     logOut,
+    passwordReset
   };
   return (
     <AuthContext.Provider value={authInformation}>
