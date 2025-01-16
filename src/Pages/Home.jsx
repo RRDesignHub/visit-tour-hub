@@ -1,6 +1,14 @@
+import Banner from "../Components/Home/Banner"
+import Overview from "../Components/Home/Overview"
+import TravelGuide from "../Components/Home/TravelGuide"
+
 
 export const Home = () => {
   return (
-    <div>Home</div>
+   <>
+    <Banner></Banner>
+    <Overview></Overview>
+    <TravelGuide></TravelGuide>
+  </>
   )
 }

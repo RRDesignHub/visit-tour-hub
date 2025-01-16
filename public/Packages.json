@@ -1,0 +1,42 @@
+[
+  {
+    "id": "p1",
+    "title": "Sundarbans Adventure",
+    "type": "Adventure",
+    "price": 120,
+    "image": "https://i.ibb.co.com/M1K78cB/Sundarban.jpg",
+    "description": "Explore the world's largest mangrove forest and spot the majestic Royal Bengal Tiger."
+  },
+  {
+    "id": "p2",
+    "title": "Relax at Cox's Bazar",
+    "type": "Relaxation",
+    "price": 150,
+    "image": "https://i.ibb.co.com/NrzgHSP/Saint-martin.jpg",
+    "description": "Enjoy the pristine beaches and serene waves at the world's longest sea beach."
+  },
+  {
+    "id": "p3",
+    "title": "Historical Tour of Bagerhat",
+    "type": "Cultural",
+    "price": 100,
+    "image": "https://i.ibb.co.com/RhCY9Hk/Sixty-dome-mosque.jpg",
+    "description": "Visit the UNESCO World Heritage Sixty Dome Mosque and other historical landmarks."
+  },
+  {
+    "id": "p4",
+    "title": "Tea Gardens of Sylhet",
+    "type": "Nature",
+    "price": 90,
+    "image": "https://example.com/sylhet-tea.jpg",
+    "description": "Immerse yourself in the lush greenery of Sylhet's world-famous tea gardens."
+  },
+  {
+    "id": "p5",
+    "title": "Bandarban Hills Adventure",
+    "type": "Adventure",
+    "price": 130,
+    "image": "https://example.com/bandarban.jpg",
+    "description": "Experience the breathtaking views and vibrant culture of the Bandarban hills."
+  }
+]

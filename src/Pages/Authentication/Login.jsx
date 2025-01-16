@@ -148,6 +148,16 @@ const Login = () => {
             Sign up here.
           </Link>
         </p>
+        <div className="divider my-6"></div>
+        <div className="flex justify-center">
+          
+          <Link
+            to="/"
+            className="text-sm text-chocolate font-heebo hover:underline"
+          >
+            Go to Home
+          </Link>
+        </div>
       </div>
     </div>
   );

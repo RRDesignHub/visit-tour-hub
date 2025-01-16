@@ -1,0 +1,50 @@
+[
+  {
+    "id": "g1",
+    "name": "Rahim Khan",
+    "experience": 10,
+    "specialty": "Adventure Tours",
+    "image": "https://example.com/rahim.jpg",
+    "bio": "Rahim is an expert in adventure travel and has been leading tours in the Sundarbans for over a decade."
+  },
+  {
+    "id": "g2",
+    "name": "Sadia Ahmed",
+    "experience": 7,
+    "specialty": "Cultural Tours",
+    "image": "https://example.com/sadia.jpg",
+    "bio": "Sadia specializes in historical and cultural tours, with in-depth knowledge of Bangladesh's rich heritage."
+  },
+  {
+    "id": "g3",
+    "name": "Arif Chowdhury",
+    "experience": 5,
+    "specialty": "Nature Tours",
+    "image": "https://example.com/arif.jpg",
+    "bio": "Arif is passionate about nature and has been guiding tours in Sylhet's tea gardens and waterfalls."
+  },
+  {
+    "id": "g4",
+    "name": "Nasima Begum",
+    "experience": 8,
+    "specialty": "Family Tours",
+    "image": "https://example.com/nasima.jpg",
+    "bio": "Nasima ensures families have a safe and enjoyable experience exploring Bangladesh's tourist spots."
+  },
+  {
+    "id": "g5",
+    "name": "Fahim Rahman",
+    "experience": 6,
+    "specialty": "Adventure & Wildlife",
+    "image": "https://example.com/fahim.jpg",
+    "bio": "Fahim is a wildlife enthusiast and has extensive experience leading safaris in the Sundarbans."
+  },
+  {
+    "id": "g6",
+    "name": "Maya Hasan",
+    "experience": 9,
+    "specialty": "Luxury Tours",
+    "image": "https://example.com/maya.jpg",
+    "bio": "Maya caters to luxury travelers, ensuring their comfort while exploring the best of Bangladesh."
+  }
+]

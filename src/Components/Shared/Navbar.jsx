@@ -6,14 +6,14 @@ import useAuth from "../../Hooks/useAuth";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   return (
-    <div className="navbar  container px-4 mx-auto">
-      <div className="flex-1">
+    <div className="navbar justify-between container px-4 mx-auto">
+      <div className="">
         <Link to="/" className="flex gap-2 items-center">
           <img className="w-auto h-7 " src={logo} alt="TourHub Logo" />
           <span className="font-bold text-2xl">TourHub</span>
         </Link>
       </div>
-      <div className="flex-none">
+      <div className="">
         <ul className="menu menu-horizontal text-base-100 px-1">
           <li>
             <NavLink to="/">Home</NavLink>
@@ -27,10 +27,13 @@ const Navbar = () => {
           <li>
             <NavLink to="/trips">Trips</NavLink>
           </li>
-
+        </ul>
+      </div>
+      <div className="flex-none">
+        <ul className="menu menu-horizontal text-base-100 px-1">
           {!user && (
             <li>
-              <NavLink to="/login">Login/Register</NavLink>
+              <NavLink to="/login">Login</NavLink>
             </li>
           )}
         </ul>
@@ -54,7 +57,10 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <h3 className="text-md font-semibold text-center py-5">{user?.displayName}</h3>
+              <h3 className="text-md font-semibold text-center pt-5">
+                {user?.displayName}
+              </h3>
+              <h4 className="text-md text-center pb-5">{user?.email}</h4>
               <li>
                 <NavLink to="/dashboard">Dashboard</NavLink>
               </li>
