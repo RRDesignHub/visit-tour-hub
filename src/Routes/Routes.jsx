@@ -6,6 +6,8 @@ import Login from "../Pages/Authentication/Login"
 import Register from "../Pages/Authentication/Register"
 import { ResetPassword } from "../Pages/Authentication/ResetPassword"
 import Dashboard from "../Layouts/Dashboard"
+import AddPackage from "../Pages/Dashboard/AdminPages/AddPackages"
+import { PackageDetails } from "../Pages/PackageDetails"
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,10 @@ const router = createBrowserRouter([
         index: true,
         element: <Home></Home>
       },
-      
+      {
+        path: '/package-details/:id', 
+        element: <PackageDetails></PackageDetails>
+      }
       
     ]
   },
@@ -36,7 +41,13 @@ const router = createBrowserRouter([
   {
     path: 'dashboard',
     element: <Dashboard></Dashboard>,
-    errorElement: <ErrorPage></ErrorPage>
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: 'add-package',
+        element: <AddPackage></AddPackage>
+      }
+    ]
   }
 ])
 

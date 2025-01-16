@@ -10,10 +10,15 @@ const TravelGuide = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch random packages
-    axios.get("Packages.json").then((res) => setPackages(res.data));
+    const handlePackagesLoad = async() =>{
+      // Fetch random packages
+    const {data} = await axios.get(`${import.meta.env.VITE_SERVER_API}/packages`);
+    setPackages(data);
+    }
+    
     // Fetch random guides
     axios.get("Guides.json").then((res) => setGuides(res.data));
+    handlePackagesLoad();
   }, []);
 
   return (
@@ -32,13 +37,13 @@ const TravelGuide = () => {
           <TabPanel>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {packages && packages?.map((pkg) => (
-                <div key={pkg.id} className="card bg-sand shadow-md rounded-lg p-4">
-                  <img src={pkg.image} alt={pkg.title} className="rounded-md mb-4" />
-                  <h3 className="text-xl font-nunito font-bold text-chocolate">{pkg.title}</h3>
-                  <p className="text-sm text-neutral">Type: {pkg.type}</p>
-                  <p className="text-sm text-neutral">Price: ${pkg.price}</p>
+                <div key={pkg._id} className="card bg-sand shadow-md rounded-lg p-4">
+                  <img src={pkg?.images[0]} alt={pkg?.title} className="rounded-md mb-4" />
+                  <h3 className="text-xl font-nunito font-bold text-chocolate">{pkg?.title}</h3>
+                  <p className="text-sm text-neutral">Type: {pkg?.type}</p>
+                  <p className="text-sm text-neutral">Price: ${pkg?.price}</p>
                   <button
-                    onClick={() => navigate(`/packages/${pkg._id}`)}
+                    onClick={() => navigate(`/package-details/${pkg._id}`)}
                     className="mt-4 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate"
                   >
                     View Details

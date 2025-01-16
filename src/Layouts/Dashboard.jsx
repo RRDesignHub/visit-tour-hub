@@ -12,9 +12,9 @@ import {
 } from "react-icons/fa";
 
 const Dashboard = () => {
-  const isTourist = true;
+  const isTourist = false;
   const isTourGuide = false;
-  const isAdmin = false;
+  const isAdmin = true;
 
   return (
     <div className="min-h-screen flex bg-sand">
@@ -162,15 +162,11 @@ const Dashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 bg-white p-6">
-        <header className="flex justify-between items-center pb-6 border-b border-neutral">
-          <h1 className="text-3xl font-nunito font-bold text-chocolate">
-            Dashboard
-          </h1>
-        </header>
+      <main className="flex-1 bg-sand ">
+        
 
         {/* Dynamic Section */}
-        <section className="mt-6">
+        <section className="">
           <Outlet />
         </section>
       </main>
