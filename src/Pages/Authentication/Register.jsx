@@ -159,6 +159,7 @@ const Registration = () => {
 
           {/* Registration Form */}
           <form onSubmit={handleSignUp}>
+            {/* name */}
             <div className="mt-4">
               <label
                 htmlFor="name"
@@ -175,6 +176,7 @@ const Registration = () => {
                 type="text"
               />
             </div>
+            {/* image file */}
             <div className="mt-4">
               <label
                 htmlFor="photo"
@@ -190,6 +192,7 @@ const Registration = () => {
                 className="file-input file-input-bordered w-full max-w-xs"
               />
             </div>
+            {/* email */}
             <div className="mt-4">
               <label
                 htmlFor="LoggingEmailAddress"
@@ -206,6 +209,7 @@ const Registration = () => {
                 type="email"
               />
             </div>
+            {/* password */}
             <div className="mt-4">
               <label
                 htmlFor="loggingPassword"

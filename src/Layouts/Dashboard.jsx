@@ -5,16 +5,15 @@ import {
   FaUser,
   FaClipboardList,
   FaPlus,
-  FaSignOutAlt,
   FaUsers,
   FaBookOpen,
   FaFileAlt,
 } from "react-icons/fa";
-
+import { TbArrowGuideFilled } from "react-icons/tb";
 const Dashboard = () => {
-  const isTourist = true;
+  const isTourist = false;
   const isTourGuide = false;
-  const isAdmin = false;
+  const isAdmin = true;
 
   return (
     <div className="min-h-screen flex bg-sand">
@@ -74,6 +73,29 @@ const Dashboard = () => {
                 >
                   <FaPlus className="w-5 h-5" />
                   Add Stories
+                </NavLink>
+                <NavLink
+                  to="/dashboard/manage-story"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"
+                      : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
+                  }
+                >
+                  <FaPlus className="w-5 h-5" />
+                  Manage Stories
+                </NavLink>
+                <NavLink
+                  to="/dashboard/join-as-guide"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"
+                      : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
+                  }
+                >
+                  <TbArrowGuideFilled className="w-5 h-5" />
+                  
+                  Join as Guid
                 </NavLink>
               </>
             )}

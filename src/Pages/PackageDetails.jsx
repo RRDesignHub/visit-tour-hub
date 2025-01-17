@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import  {  useState } from "react";
 import { useParams } from "react-router-dom";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,37 +16,42 @@ import { AboutTour } from "../Components/PackageDetailsPage/AboutTour";
 import { TourPlan } from "../Components/PackageDetailsPage/TourPlan";
 import { OurGuide } from "../Components/PackageDetailsPage/OurGuide";
 import { Booking } from "../Components/PackageDetailsPage/Booking";
+import { useQuery } from "@tanstack/react-query";
+import { LoadingSpinner } from "../Components/Shared/LoadingSpinner";
 
 export const PackageDetails = () => {
   const { id } = useParams();
-  const [packageDetails, setPackageDetails] = useState({});
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [guides, setGuides] = useState([]);
-  useEffect(() => {
-    const handlePackageLoad = async () => {
-      // Fetch random packages
+  const {data: packageDetails = {}, isLoading: packageLoading} = useQuery({
+    queryKey: ["package"],
+    queryFn: async() =>{
       const { data } = await axios.get(
         `${import.meta.env.VITE_SERVER_API}/packages/${id}`
       );
-      setPackageDetails(data);
+      return data;
+    }
+  })
 
-      const handleGuideLoad = async() =>{
-        // Fetch random packages
-      const {data} = await axios.get("Guides.json");
-      setGuides(data);
-
-      }
-      handleGuideLoad();
-    };
-
-    handlePackageLoad();
-  }, []);
+   // load all guide from db:
+   const { data: guides = [], isLoading: guideLoading } = useQuery({
+    queryKey: ["guides"],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_SERVER_API}/tour-guide`
+      );
+      return data;
+    },
+  });
+  if(packageLoading || guideLoading) {
+    return <LoadingSpinner></LoadingSpinner>
+  }
+  
   return (
     <>
       {packageDetails?.images && (
         <>
           <Swiper
-          key={packageDetails?.images.map((img,i) => i)}
+            key={packageDetails?.images.map((img, i) => i)}
             style={{
               "--swiper-navigation-color": "#fff",
               "--swiper-pagination-color": "#fff",
@@ -60,10 +65,10 @@ export const PackageDetails = () => {
           >
             {packageDetails?.images &&
               packageDetails?.images.map((img, inx) => (
-                <SwiperSlide>
+                <SwiperSlide key={inx}>
                   <div className="h-[500px] md:h-[450px] lg:h-[400px] w-full">
                     <img
-                      key={inx}
+                      
                       src={img}
                       className="w-full h-full object-contain "
                     />
@@ -73,6 +78,7 @@ export const PackageDetails = () => {
           </Swiper>
           <Swiper
             onSwiper={setThumbsSwiper}
+            key={packageDetails?.images.map((img, i) => {i+1})}
             loop={true}
             spaceBetween={10}
             slidesPerView={4}

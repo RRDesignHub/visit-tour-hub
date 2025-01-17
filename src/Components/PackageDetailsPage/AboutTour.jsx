@@ -3,10 +3,10 @@ import React from 'react'
 export const AboutTour = ({packageData}) => {
   return (
     <section className="mb-12">
-        <h2 className="text-4xl text-center font-nunito font-bold text-chocolate mb-4">
+        <h2 className="text-4xl text-center font-nunito font-bold text-chocolate mb-2">
           About the Tour
         </h2>
-        <div className='divider'></div>
+        <div className='divider my-0'></div>
         <p className="text-lg text-neutral font-heebo mb-2">
           {packageData?.description}
         </p>

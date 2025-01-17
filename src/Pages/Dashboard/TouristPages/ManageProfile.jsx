@@ -59,9 +59,7 @@ export const ManageProfile = () => {
   };
   return (
     <div className="container mx-auto px-6 lg:px-12 py-12">
-      <section className="text-center mb-8">
-        
-      </section>
+      
 
       {/* Tourist Information */}
       <section className="bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">

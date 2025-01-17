@@ -3,9 +3,10 @@ import React from "react";
 export const TourPlan = ({ packageData }) => {
   return (
     <section className="mb-12">
-      <h2 className="text-2xl font-nunito font-bold text-chocolate mb-4">
+      <h2 className="text-4xl text-center font-nunito font-bold text-chocolate mb-2">
         Tour Plan
       </h2>
+      <div className="divider my-0"></div>
       <div className="space-y-4">
         {packageData?.tourPlan && packageData?.tourPlan.map((plan, index) => (
           <div key={index} className="collapse collapse-arrow p-4 bg-white shadow-md rounded-lg border-l-4 border-terracotta" >

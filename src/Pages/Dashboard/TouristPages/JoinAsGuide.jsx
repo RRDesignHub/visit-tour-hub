@@ -12,25 +12,32 @@ export const JoinAsGuide = () => {
     const form = e.target;
     const title = form.title.value;
     const reason = form.reason.value;
-    const cv = form.cv.value;
+    const cvURL = form.cv.value;
 
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_SERVER_API}/tour-guides/${user?.email}`,
+        `${import.meta.env.VITE_SERVER_API}/guides-applications/${user?.email}`,
         {
           name: user?.displayName,
           email: user?.email,
           image: user?.photoURL,
           title,
           reason,
-          cv,
+          cvURL,
           status:"Pending",
         }
       );
-      if(data?.message == "Already submitted for guide!!!"){
+      if(data?.message == "You are already a Tour Guide!"){
         return Swal.fire({
-          title: "Pending!!!",
-          text: "Your application for join as guid is pendng!",
+          title: "What's wrong!",
+          text: "You are already a Tour Guide!",
+          icon: "info"
+        });
+      }
+      if(data?.message == "Already applied for Tour Guide!!!"){
+        return Swal.fire({
+          title: "Pending!",
+          text: "Already applied for Tour Guide!!!",
           icon: "info"
         });
       }
@@ -48,7 +55,7 @@ export const JoinAsGuide = () => {
   };
   return (
     <>
-      <div className="mt-5 container mx-auto max-w-lg bg-white shadow-lg rounded-lg p-8">
+      <div className="mt-8 container mx-auto max-w-lg bg-white shadow-lg rounded-lg p-8">
         <h2 className="text-2xl font-nunito font-bold text-chocolate mb-6 text-center">
           Join as a Tour Guide
         </h2>
@@ -67,10 +74,10 @@ export const JoinAsGuide = () => {
               <option value="" disabled>
                 Choose Tour Tyep...
               </option>
-              <option value="Adventure">Adventure</option>
-              <option value="Cultural">Cultural</option>
-              <option value="Relaxation">Relaxation</option>
-              <option value="Nature">Nature</option>
+              <option value="Adventure Tours">Adventure Tours</option>
+              <option value="Cultural Tours">Cultural Tours</option>
+              <option value="Relaxation Tours">Relaxation Tours</option>
+              <option value="Nature Tours">Nature Tours</option>
             </select>
           </div>
 

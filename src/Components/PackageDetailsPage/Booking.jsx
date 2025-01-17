@@ -19,9 +19,10 @@ export const Booking = ({ packageData }) => {
     <>
       {/* Booking Form Section */}
       <section>
-        <h2 className="text-2xl font-nunito font-bold text-chocolate mb-4">
+        <h2 className="text-4xl text-center font-nunito font-bold text-chocolate mb-2">
           Book This Tour
         </h2>
+        <div className="divider my-0"></div>
         <form
           onSubmit={handleBooking}
           className="space-y-4 bg-sand p-6 rounded-lg shadow-md"
