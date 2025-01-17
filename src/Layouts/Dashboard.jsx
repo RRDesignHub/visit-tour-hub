@@ -12,9 +12,9 @@ import {
 } from "react-icons/fa";
 
 const Dashboard = () => {
-  const isTourist = false;
+  const isTourist = true;
   const isTourGuide = false;
-  const isAdmin = true;
+  const isAdmin = false;
 
   return (
     <div className="min-h-screen flex bg-sand">
@@ -43,7 +43,7 @@ const Dashboard = () => {
             {isTourist && (
               <>
                 <NavLink
-                  to="/dashboard/profile"
+                  to="/dashboard/tourist-profile"
                   className={({ isActive }) =>
                     isActive
                       ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"

@@ -4,9 +4,31 @@
     "title": "Sundarbans Adventure",
     "type": "Adventure",
     "price": 120,
-    "image": "https://i.ibb.co.com/M1K78cB/Sundarban.jpg",
-    "description": "Explore the world's largest mangrove forest and spot the majestic Royal Bengal Tiger."
-  },
+    "duration": "3 days",
+    "tourPlan": [
+      {
+        "day": 1,
+        "description": "Arrival at Sundarbans, sightseeing and wildlife safari."
+      },
+      {
+        "day": 2,
+        "description": "Boat ride through the mangrove forest, bird watching."
+      },
+      {
+        "day": 3,
+        "description": "Return journey after breakfast."
+      }
+    ],
+    "images": [
+      "https://example.com/sundarbans1.jpg",
+      "https://example.com/sundarbans2.jpg",
+      "https://example.com/sundarbans3.jpg"
+    ],
+    "description": "Explore the world's largest mangrove forest and spot the majestic Royal Bengal Tiger.",
+    "location": "Sundarbans, Bangladesh",
+    "highlights": ["Wildlife Safari", "Boat Ride", "Bird Watching"]
+  }
+  ,
   {
     "id": "p2",
     "title": "Relax at Cox's Bazar",

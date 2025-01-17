@@ -8,6 +8,8 @@ import { ResetPassword } from "../Pages/Authentication/ResetPassword"
 import Dashboard from "../Layouts/Dashboard"
 import AddPackage from "../Pages/Dashboard/AdminPages/AddPackages"
 import { PackageDetails } from "../Pages/PackageDetails"
+import { ManageProfile } from "../Pages/Dashboard/TouristPages/ManageProfile"
+import { JoinAsGuide } from "../Pages/Dashboard/TouristPages/JoinAsGuide"
 
 const router = createBrowserRouter([
   {
@@ -43,10 +45,23 @@ const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
+      // tourists routes:
+      {
+        path: 'tourist-profile',
+        element: <ManageProfile></ManageProfile>
+      },
+      {
+        path: 'join-as-guide',
+        element: <JoinAsGuide></JoinAsGuide>
+      },
+
+      
+      // admin routes
       {
         path: 'add-package',
         element: <AddPackage></AddPackage>
-      }
+      },
+
     ]
   }
 ])
