@@ -1,6 +1,3 @@
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const OurGuide = ({ guides }) => {
   return (
@@ -26,7 +23,7 @@ export const OurGuide = ({ guides }) => {
                   {guide.name}
                 </h3>
                 <p className="text-sm font-heebo text-neutral">
-                  {guide.speciality}
+                  {guide.speciality || "General Tours"}
                 </p>
                 <button
                   onClick={() => navigate(`/guides/${guide.id}`)}

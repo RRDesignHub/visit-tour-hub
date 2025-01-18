@@ -23,21 +23,47 @@ export const ManageUsers = () => {
 
   const handleUpdateRole = async (_id, role) => {
     try {
-      const { data } = await axios.patch(
-        `${import.meta.env.VITE_SERVER_API}/users/${_id}`,
-        { role }
-      );
-      if (data.modifiedCount) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: `Successfully update Role!`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        refetch();
-      }
-    } catch (err) {console.log("Role updating error -->", err)}
+      Swal.fire({
+        title: `Are you want to change the role to ${role}?`,
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3D405B",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Change!"
+      }).then(async(result) => {
+        if (result.isConfirmed) {
+          const { data } = await axios.patch(
+            `${import.meta.env.VITE_SERVER_API}/users/${_id}`,
+            { role }
+          );
+          if (data.message === "Already Tour Guide!!!") {
+            return Swal.fire({
+              position: "center",
+              icon: "error",
+              title: `User already a Tour Guide`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+          if (data.modifiedCount) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `Successfully update Role!`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            refetch();
+          }
+        }
+      });
+      
+      
+      
+    } catch (err) {
+      console.log("Role updating error -->", err);
+    }
   };
 
   if (userLoading) {
@@ -104,6 +130,7 @@ export const ManageUsers = () => {
                   <td className="px-4 py-2">{index + 1}</td>
                   <td className="px-4 py-2">
                     <img
+                      referrerPolicy="no-referrer"
                       src={user.image}
                       alt={user.name}
                       className="h-10 w-10 border-2 border-terracotta rounded-full"
@@ -114,6 +141,8 @@ export const ManageUsers = () => {
                   <td className="px-4 py-2">
                     {user.role === "tourist"
                       ? "Tourist"
+                      : user.role === "tour-guide"
+                      ? "Tour Guide"
                       : user.role === "admin"
                       ? "Admin"
                       : ""}
@@ -131,6 +160,7 @@ export const ManageUsers = () => {
                         Change Role
                       </option>
                       <option value="tourist">Tourist</option>
+                      <option value="tour-guide">Tour Guide</option>
                       <option value="admin">Admin</option>
                     </select>
                   </td>

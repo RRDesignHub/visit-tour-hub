@@ -34,12 +34,14 @@ export const ManageCandidates = () => {
           const { data } = await axios.post(
             `${import.meta.env.VITE_SERVER_API}/tour-guide/${_id}`,
             {
+              userId: candidate.userId,
               name: candidate.name,
               email: candidate.email,
               image: candidate.image,
               speciality: candidate.title,
+              experience: 0,
               reason: candidate.reason,
-              cvURL: candidate.cvURL,
+              cvLink: candidate.cvLink,
             }
           );
           if (data.acceptedApplication) {

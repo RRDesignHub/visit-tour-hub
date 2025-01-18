@@ -1,30 +1,40 @@
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 export const JoinAsGuide = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  
+  const {data : dbUser = {}} = useQuery({
+    queryKey: ["user", user?.email],
+    queryFn: async () =>{
+      const {data} =await axios.get(`${import.meta.env.VITE_SERVER_API}/users/${user?.email}`);
+      return data;
+    }
+  })
   const handleJoinAsGuide = async (e) => {
     e.preventDefault();
     const form = e.target;
     const title = form.title.value;
     const reason = form.reason.value;
-    const cvURL = form.cv.value;
+    const cvLink = form.cv.value;
 
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_SERVER_API}/guides-applications/${user?.email}`,
+        `${import.meta.env.VITE_SERVER_API}/guides-applications/${dbUser?.email}`,
         {
-          name: user?.displayName,
-          email: user?.email,
-          image: user?.photoURL,
+          userId: dbUser._id,
+          name:dbUser?.name,
+          email: dbUser?.email,
+          image: dbUser?.image,
           title,
           reason,
-          cvURL,
-          status:"Pending",
+          cvLink,
         }
       );
       if(data?.message == "You are already a Tour Guide!"){

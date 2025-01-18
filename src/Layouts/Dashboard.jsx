@@ -26,17 +26,7 @@ const Dashboard = () => {
           <h3 className="text-xl font-heebo text-center">Dashboard</h3>
           <div className="divider my-2 h-[2px] bg-[rgba(244,241,222,0.59)]"></div>
           <nav className="space-y-4 px-4">
-            <NavLink
-              to="/dashboard/home"
-              className={({ isActive }) =>
-                isActive
-                  ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"
-                  : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
-              }
-            >
-              <FaHome className="w-5 h-5" />
-              Dashboard Home
-            </NavLink>
+            
 
             {/* Tourist-Specific Links */}
             {isTourist && (
@@ -94,7 +84,6 @@ const Dashboard = () => {
                   }
                 >
                   <TbArrowGuideFilled className="w-5 h-5" />
-                  
                   Join as Guid
                 </NavLink>
               </>
@@ -132,6 +121,17 @@ const Dashboard = () => {
             {isAdmin && (
               <>
                 <NavLink
+                  to="/dashboard/manage-profile"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"
+                      : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
+                  }
+                >
+                  <FaUsers className="w-5 h-5" />
+                  Manage Profile
+                </NavLink>
+                <NavLink
                   to="/dashboard/manage-users"
                   className={({ isActive }) =>
                     isActive
@@ -154,6 +154,17 @@ const Dashboard = () => {
                   Add Package
                 </NavLink>
                 <NavLink
+                  to="/dashboard/added-packages"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"
+                      : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
+                  }
+                >
+                  <FaPlus className="w-5 h-5" />
+                  My Added Packages
+                </NavLink>
+                <NavLink
                   to="/dashboard/manage-candidates"
                   className={({ isActive }) =>
                     isActive
@@ -171,22 +182,24 @@ const Dashboard = () => {
           <div className="mt-auto ">
             {/* Logout */}
             <div className="px-4">
-            
-            <Link to='/' className="flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg">
-              <FaHome className="w-5 h-5" />
-              Home
-            </Link>
+              <Link
+                to="/"
+                className="flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
+              >
+                <FaHome className="w-5 h-5" />
+                Home
+              </Link>
             </div>
             <div className="divider my-2 h-[2px] bg-[rgba(244,241,222,0.59)]"></div>
-            <p className="text-xs pt-2 text-terracotta text-center">All right reserved | TourHub</p>
+            <p className="text-xs pt-2 text-terracotta text-center">
+              All right reserved | TourHub
+            </p>
           </div>
         </div>
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 bg-sand ">
-        
-
         {/* Dynamic Section */}
         <section className="">
           <Outlet />

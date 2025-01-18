@@ -64,14 +64,14 @@ export const Booking = ({ packageData }) => {
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none"
               />
             </div>
-            <div>
+            <div className="mx-auto">
               <label className="block text-sm font-heebo text-chocolate mb-2">
                 Your Photo
               </label>
               <img
                 src={user?.photoURL || ""}
-                alt="Tourist"
-                className="w-16 h-16 rounded-full border"
+                alt={user?.displayName || "User"}
+                className="w-16 h-16 rounded-full border border-terracotta"
               />
             </div>
           </div>

@@ -23,7 +23,7 @@ export const PackageDetails = () => {
   const { id } = useParams();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const {data: packageDetails = {}, isLoading: packageLoading} = useQuery({
-    queryKey: ["package"],
+    queryKey: ["package", id],
     queryFn: async() =>{
       const { data } = await axios.get(
         `${import.meta.env.VITE_SERVER_API}/packages/${id}`
@@ -78,10 +78,9 @@ export const PackageDetails = () => {
           </Swiper>
           <Swiper
             onSwiper={setThumbsSwiper}
-            key={packageDetails?.images.map((img, i) => {i+1})}
             loop={true}
             spaceBetween={10}
-            slidesPerView={4}
+            slidesPerView={3}
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
