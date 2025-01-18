@@ -10,6 +10,10 @@ import {
   FaFileAlt,
 } from "react-icons/fa";
 import { TbArrowGuideFilled } from "react-icons/tb";
+import { CgProfile } from "react-icons/cg";
+import { FaUsersGear, FaUsersBetweenLines } from "react-icons/fa6";
+import { LuPackagePlus } from "react-icons/lu";
+import { MdBookmarkAdded } from "react-icons/md";
 const Dashboard = () => {
   const isTourist = false;
   const isTourGuide = false;
@@ -72,7 +76,7 @@ const Dashboard = () => {
                       : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
                   }
                 >
-                  <FaPlus className="w-5 h-5" />
+                  <FaBookOpen className="w-5 h-5" />
                   Manage Stories
                 </NavLink>
                 <NavLink
@@ -92,6 +96,17 @@ const Dashboard = () => {
             {/* Tour Guide-Specific Links */}
             {isTourGuide && (
               <>
+              <NavLink
+                  to="/dashboard/tour-guide-profile"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"
+                      : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
+                  }
+                >
+                  <CgProfile className="w-5 h-5" />
+                  Manage Profile
+                </NavLink>
                 <NavLink
                   to="/dashboard/assigned-tours"
                   className={({ isActive }) =>
@@ -128,7 +143,7 @@ const Dashboard = () => {
                       : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
                   }
                 >
-                  <FaUsers className="w-5 h-5" />
+                  <CgProfile className="w-5 h-5" />
                   Manage Profile
                 </NavLink>
                 <NavLink
@@ -139,7 +154,7 @@ const Dashboard = () => {
                       : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
                   }
                 >
-                  <FaUsers className="w-5 h-5" />
+                  <FaUsersGear className="w-5 h-5" />
                   Manage Users
                 </NavLink>
                 <NavLink
@@ -150,7 +165,7 @@ const Dashboard = () => {
                       : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
                   }
                 >
-                  <FaPlus className="w-5 h-5" />
+                  <LuPackagePlus className="w-5 h-5" />
                   Add Package
                 </NavLink>
                 <NavLink
@@ -161,7 +176,7 @@ const Dashboard = () => {
                       : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
                   }
                 >
-                  <FaPlus className="w-5 h-5" />
+                  <MdBookmarkAdded className="w-5 h-5" />
                   My Added Packages
                 </NavLink>
                 <NavLink
@@ -172,7 +187,7 @@ const Dashboard = () => {
                       : "flex items-center gap-3 px-4 py-2 hover:bg-terracotta hover:text-white transition rounded-lg"
                   }
                 >
-                  <FaFileAlt className="w-5 h-5" />
+                  <FaUsersBetweenLines className="w-5 h-5" />
                   Manage Candidates
                 </NavLink>
               </>

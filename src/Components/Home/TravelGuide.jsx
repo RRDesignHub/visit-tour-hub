@@ -91,7 +91,7 @@ const TravelGuide = () => {
           {/* Meet Our Tour Guides Tab */}
           <TabPanel>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {guides.map((guide) => (
+              {guides.map((guide, index) => (
                 <>
                   <div
                     key={guide._id}

@@ -13,6 +13,7 @@ import { JoinAsGuide } from "../Pages/Dashboard/TouristPages/JoinAsGuide";
 import PrivateRoute from "./PrivateRoute";
 import { ManageUsers } from "../Pages/Dashboard/AdminPages/ManageUsers";
 import { ManageCandidates } from "../Pages/Dashboard/AdminPages/ManageCandidates";
+import { TourGuideProfile } from "../Pages/Dashboard/TouristGuidePages/TourGuideProfile";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,13 @@ const router = createBrowserRouter([
       {
         path: "join-as-guide",
         element: <JoinAsGuide></JoinAsGuide>,
+      },
+
+
+      // tour-guide routes:
+      {
+        path: "tour-guide-profile",
+        element: <TourGuideProfile></TourGuideProfile>
       },
 
       // admin routes
