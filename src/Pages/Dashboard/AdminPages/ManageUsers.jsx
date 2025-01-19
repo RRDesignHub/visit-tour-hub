@@ -59,8 +59,6 @@ export const ManageUsers = () => {
         }
       });
       
-      
-      
     } catch (err) {
       console.log("Role updating error -->", err);
     }

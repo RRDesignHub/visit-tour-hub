@@ -10,7 +10,7 @@ export const AboutTour = ({packageData}) => {
           {packageData?.description}
         </p>
         <p className="text-lg text-neutral font-heebo">
-          <strong>Location:</strong> {packageData?.location}
+          <strong>Location:</strong> {packageData?.location}.
         </p>
         <ul className="mt-4 list-disc list-inside text-neutral font-heebo">
           <strong>Highlights:</strong>

@@ -1,6 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import  {  useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { LoadingSpinner } from "../Components/Shared/LoadingSpinner";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -16,24 +18,23 @@ import { AboutTour } from "../Components/PackageDetailsPage/AboutTour";
 import { TourPlan } from "../Components/PackageDetailsPage/TourPlan";
 import { OurGuide } from "../Components/PackageDetailsPage/OurGuide";
 import { Booking } from "../Components/PackageDetailsPage/Booking";
-import { useQuery } from "@tanstack/react-query";
-import { LoadingSpinner } from "../Components/Shared/LoadingSpinner";
+import { SwipeBanner } from "../Components/PackageDetailsPage/SwipeBanner";
 
 export const PackageDetails = () => {
   const { id } = useParams();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const {data: packageDetails = {}, isLoading: packageLoading} = useQuery({
+  const { data: packageDetails = {}, isLoading: packageLoading } = useQuery({
     queryKey: ["package", id],
-    queryFn: async() =>{
+    queryFn: async () => {
       const { data } = await axios.get(
         `${import.meta.env.VITE_SERVER_API}/packages/${id}`
       );
       return data;
-    }
-  })
+    },
+  });
 
-   // load all guide from db:
-   const { data: guides = [], isLoading: guideLoading } = useQuery({
+  // load all guide from db:
+  const { data: guides = [], isLoading: guideLoading } = useQuery({
     queryKey: ["guides"],
     queryFn: async () => {
       const { data } = await axios.get(
@@ -42,63 +43,16 @@ export const PackageDetails = () => {
       return data;
     },
   });
-  if(packageLoading || guideLoading) {
-    return <LoadingSpinner></LoadingSpinner>
+  if (packageLoading || guideLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
   }
-  
+
   return (
     <>
-      {packageDetails?.images && (
-        <>
-          <Swiper
-            key={packageDetails?.images.map((img, i) => i)}
-            style={{
-              "--swiper-navigation-color": "#fff",
-              "--swiper-pagination-color": "#fff",
-            }}
-            loop={true}
-            spaceBetween={10}
-            navigation={true}
-            thumbs={{ swiper: thumbsSwiper }}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className="mySwiper2 mb-3 bg-sand"
-          >
-            {packageDetails?.images &&
-              packageDetails?.images.map((img, inx) => (
-                <SwiperSlide key={inx}>
-                  <div className="h-[500px] md:h-[450px] lg:h-[400px] w-full">
-                    <img
-                      
-                      src={img}
-                      className="w-full h-full object-contain "
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-          </Swiper>
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            loop={true}
-            spaceBetween={10}
-            slidesPerView={3}
-            freeMode={true}
-            watchSlidesProgress={true}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className="mySwiper mb-10"
-          >
-            {packageDetails?.images &&
-              packageDetails?.images.map((img, inx) => (
-                <SwiperSlide>
-                  <img
-                    key={inx}
-                    src={img}
-                    className="h-[60px] w-full object-contain"
-                  />
-                </SwiperSlide>
-              ))}
-          </Swiper>
-        </>
-      )}
+      {/* slider images */}
+      <div className="mx-auto bg-sand py-5">
+        <SwipeBanner packageDetails={packageDetails}></SwipeBanner>
+      </div>
 
       <div className="container mx-auto px-6 lg:px-12 py-12">
         {/* About the Tour Section */}
@@ -111,7 +65,7 @@ export const PackageDetails = () => {
         <OurGuide guides={guides}></OurGuide>
 
         {/* booking */}
-        <Booking packageData={packageDetails}></Booking>
+        <Booking packageData={packageDetails} guides={guides}></Booking>
       </div>
     </>
   );

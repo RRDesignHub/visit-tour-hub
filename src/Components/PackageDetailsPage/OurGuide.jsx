@@ -6,7 +6,7 @@ export const OurGuide = ({ guides }) => {
         <h2 className="text-4xl text-center font-nunito font-bold text-chocolate mb-2">
           Meet Our Tour Guides
         </h2>
-        <div className="divider mt-0"></div>
+        <div className="divider my-0"></div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {guides &&
             guides?.map((guide) => (

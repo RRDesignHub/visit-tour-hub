@@ -7,7 +7,7 @@ import imageUpload from "../../../Api/Utils";
 import Swal from "sweetalert2";
 
 export const ManageProfile = () => {
-  const { user , updateUserProfile} = useAuth();
+  const { user, updateUserProfile } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -58,19 +58,17 @@ export const ManageProfile = () => {
     }
   };
   return (
-    <div className="container mx-auto px-6 lg:px-12 py-12">
-      
-
+    <div className="container mx-auto px-6 lg:px-6 py-12">
       {/* Tourist Information */}
       <section className="bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
         <div className="flex flex-col justify-center items-center gap-6">
           <div className="text-center mb-8">
-          <h1 className="text-3xl font-nunito font-bold text-chocolate">
-          Welcome, <span className="text-terracotta">{tourist?.name}!</span>
-        </h1>
-        <p className="text-lg font-heebo text-neutral mt-2">
-          Manage your profile and explore your journey with TourHub.
-        </p>
+            <h1 className="text-3xl font-nunito font-bold text-chocolate">
+              Welcome, <span className="text-terracotta">{tourist?.name}!</span>
+            </h1>
+            <p className="text-lg font-heebo text-neutral mt-2">
+              Manage your profile and explore your journey with TourHub.
+            </p>
           </div>
           <img
             src={tourist?.image}
@@ -136,7 +134,7 @@ export const ManageProfile = () => {
                   className="block text-sm font-heebo text-chocolate mb-2"
                   htmlFor="image"
                 >
-                  Profile Image URL
+                  Profile Image
                 </label>
                 <input
                   type="file"

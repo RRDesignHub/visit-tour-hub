@@ -16,8 +16,8 @@ import { LuPackagePlus } from "react-icons/lu";
 import { MdBookmarkAdded } from "react-icons/md";
 const Dashboard = () => {
   const isTourist = false;
-  const isTourGuide = false;
-  const isAdmin = true;
+  const isTourGuide = true;
+  const isAdmin = false;
 
   return (
     <div className="min-h-screen flex bg-sand">
@@ -47,7 +47,7 @@ const Dashboard = () => {
                   Manage Profile
                 </NavLink>
                 <NavLink
-                  to="/dashboard/bookings"
+                  to="/dashboard/my-bookings"
                   className={({ isActive }) =>
                     isActive
                       ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"
@@ -108,7 +108,7 @@ const Dashboard = () => {
                   Manage Profile
                 </NavLink>
                 <NavLink
-                  to="/dashboard/assigned-tours"
+                  to="/dashboard/my-assigned-tour"
                   className={({ isActive }) =>
                     isActive
                       ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"
