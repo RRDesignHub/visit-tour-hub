@@ -24,9 +24,8 @@ export const MyBookings = () => {
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
-  console.log(bookings);
 
-  const handleCancelBooking = async (id) => {
+  const handleCancelBooking = async (id, packageId, touristId, guideId) => {
     Swal.fire({
       title: `Are you sure?`,
       text: "You have to apply again for the booking!",
@@ -34,17 +33,19 @@ export const MyBookings = () => {
       showCancelButton: true,
       confirmButtonColor: "#3D405B",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Delete!",
+      confirmButtonText: "Yes, Cancel!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axios.delete(
-          `${import.meta.env.VITE_SERVER_API}/booking/${id}`
+        const { data } = await axios.patch(
+          `${
+            import.meta.env.VITE_SERVER_API
+          }/booking/cancel-booking/${id}?packageId=${packageId}&touristId=${touristId}&guideId=${guideId}`
         );
-        if (data.deletedCount) {
+        if (data.modifiedCount) {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: `Successfully delete your booking!`,
+            title: `Successfully cancelled your booking!`,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -93,17 +94,28 @@ export const MyBookings = () => {
                           ? "text-green-600"
                           : booking.status === "rejected"
                           ? "text-red-500"
-                          : "text-yellow-500"
+                          : booking.status === "cancelled"
+                          ? "text-chocolate"
+                          : booking.status === "pending" ||
+                            booking.status === "accepted"
+                          ? "text-yellow-500"
+                          : "text-orange-500"
                       }`}
                     >
-                      {booking.status === "confirmed"
-                        ? "Confirmed"
+                      {booking.status === "pending"
+                        ? "Pending"
                         : booking.status === "rejected"
                         ? "Rejected"
-                        : "Pending"}
+                        : booking.status === "accepted"
+                        ? "Accepted"
+                        : booking.status === "confirmed"
+                        ? "Confirmed"
+                        : booking.status === "completed"
+                        ? "Completed"
+                        : "Cancelled"}
                     </td>
                     <td className="px-4 py-2 text-center space-x-2">
-                      {booking.status === "confirmed" && (
+                      {booking.status === "accepted" && (
                         <Link to={`/dashboard/payment/${booking._id}`}>
                           <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
                             Pay
@@ -112,7 +124,20 @@ export const MyBookings = () => {
                       )}
                       <button
                         className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-                        onClick={() => handleCancelBooking(booking._id)}
+                        onClick={() =>
+                          handleCancelBooking(
+                            booking._id,
+                            booking.packageId,
+                            booking.touristId,
+                            booking.guideId
+                          )
+                        }
+                        disabled={
+                          booking.status === "confirmed" ||
+                          booking.status === "rejected" ||
+                          booking.status === "cancelled" ||
+                          booking.status === "completed"
+                        }
                       >
                         Cancel
                       </button>

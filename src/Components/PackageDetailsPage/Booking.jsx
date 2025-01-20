@@ -19,7 +19,7 @@ export const Booking = ({ packageData, guides }) => {
     queryKey: ["tourist", user?.email],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/users/${user?.email}`
+        `${import.meta.env.VITE_SERVER_API}/user/${user?.email}`
       );
       return data;
     },

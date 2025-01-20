@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
+import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import imageUpload from "../../../Api/Utils";
@@ -8,6 +8,7 @@ import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import Swal from "sweetalert2";
 
 export const TourGuideProfile = () => {
+  const axiosSecure = useAxiosSecure();
   const { user, updateUserProfile } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
@@ -17,8 +18,8 @@ export const TourGuideProfile = () => {
   } = useQuery({
     queryKey: ["guide"],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/tour-guide/${user?.email}`
+      const { data } = await axiosSecure.get(
+        `/tour-guide/${user?.email}`
       );
       return data;
     },
@@ -48,8 +49,8 @@ export const TourGuideProfile = () => {
     const photoURL = await imageUpload(imageFile);
 
     try {
-      const { data } = await axios.patch(
-        `${import.meta.env.VITE_SERVER_API}/tour-guide/${_id}`,
+      const { data } = await axiosSecure.patch(
+        `${import.meta.env.VITE_SERVER_API}/tour-guide/update/${_id}`,
         {
           name,
           image: photoURL,

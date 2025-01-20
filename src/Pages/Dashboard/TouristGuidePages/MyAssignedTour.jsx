@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
+import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 import axios from "axios";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import Swal from "sweetalert2";
 
 export const MyAssignedTour = () => {
   const { user } = useAuth();
-
+  const axiosSecure = useAxiosSecure();
   // get guide data fro data for guide name and id:
   const { data: tourGuide = {}, isLoading: guideLoading } = useQuery({
     queryKey: ["guide", user?.email],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/tour-guide/${user?.email}`
+      const { data } = await axiosSecure.get(
+        `/tour-guide/${user?.email}`
       );
       return data;
     },
@@ -26,8 +27,8 @@ export const MyAssignedTour = () => {
   } = useQuery({
     queryKey: ["assignedTour", tourGuide._id],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/assigned-tours/${tourGuide._id}`
+      const { data } = await axiosSecure.get(
+        `/assigned-tours/${tourGuide._id}`
       );
       return data;
     },
@@ -37,7 +38,7 @@ export const MyAssignedTour = () => {
     return <LoadingSpinner></LoadingSpinner>;
   }
 
-  const handleAccept = async (id, packageId, touristId) => {
+  const handleAccept = async (id, packageId, touristId, guideId) => {
     Swal.fire({
       title: `Are you sure?`,
       text: "You accept the booking!",
@@ -49,8 +50,8 @@ export const MyAssignedTour = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const { data } = await axios.patch(
-          `${import.meta.env.VITE_SERVER_API}/assigned-tours/${id}`, {
-            status: "accepted", packageId, touristId
+          `${import.meta.env.VITE_SERVER_API}/assigned-tours/accept/${id}`, {
+            status: "accepted", packageId, touristId, guideId
           }
         );
         if (data.modifiedCount) {
@@ -67,7 +68,7 @@ export const MyAssignedTour = () => {
     });
   };
 
-  const handleReject = async (id, packageId, touristId) => {
+  const handleReject = async (id, packageId, touristId, guideId) => {
     Swal.fire({
       title: `Are you sure?`,
       text: "You reject the booking!",
@@ -78,10 +79,12 @@ export const MyAssignedTour = () => {
       confirmButtonText: "Yes, Reject!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axios.delete(
-          `${import.meta.env.VITE_SERVER_API}/assigned-tours/${id}?packageId=${packageId}&touristId=${touristId}`
+        const { data } = await axios.patch(
+          `${import.meta.env.VITE_SERVER_API}/assigned-tours/reject/${id}`, {
+            status: "rejected", packageId, touristId, guideId
+          }
         );
-        if (data.deletedCount) {
+        if (data.modifiedCount) {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -136,21 +139,23 @@ export const MyAssignedTour = () => {
                     {
                       tour.status === "in-review" ? "In review" :
                       tour.status === "accepted" ? "Accepted" :
-                      tour.status === "completed" ? "Completed" : "Rejected"
+                      tour.status === "rejected" ? "Rejected" :
+                      tour.status === "cancelled" ? "Cancelled" :
+                      tour.status === "completed" ? "Completed" : "Accepted"
                     }
                   </td>
                   <td className="px-4 py-2 text-center">
                     <button
                       className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-                      onClick={() => handleAccept(tour._id, tour.packageId, tour.touristId)}
-                      disabled={tour.status !== "in-review"}
+                      onClick={() => handleAccept(tour._id, tour.packageId, tour.touristId, tour.guideId)}
+                      disabled={tour.status !== "in-review" || tour.status === "accepted"}
                     >
                       Accept
                     </button>
                     <button
                       className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition ml-2"
-                      onClick={() => handleReject(tour._id, tour.packageId, tour.touristId)}
-                      disabled={tour.status === "rejected" || tour.status === "accepted"}
+                      onClick={() => handleReject(tour._id, tour.packageId, tour.touristId, tour.guideId)}
+                      disabled={tour.status === "rejected" || tour.status === "accepted" || tour.status === "cancelled"}
                     >
                       Reject
                     </button>

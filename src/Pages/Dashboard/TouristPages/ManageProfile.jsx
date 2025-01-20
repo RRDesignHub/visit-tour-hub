@@ -15,7 +15,7 @@ export const ManageProfile = () => {
     queryKey: ["tourist"],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/users/${user?.email}`
+        `${import.meta.env.VITE_SERVER_API}/user/${user?.email}`
       );
       return data;
     },
@@ -32,13 +32,11 @@ export const ManageProfile = () => {
     const photoURL = await imageUpload(imageFile);
 
     try {
-      const { data } = await axios.put(
-        `${import.meta.env.VITE_SERVER_API}/users/${user?.email}`,
+      const { data } = await axios.patch(
+        `${import.meta.env.VITE_SERVER_API}/user/update/${user?.email}`,
         {
           name,
-          image: photoURL,
-          email,
-          role,
+          image: photoURL
         }
       );
       if (data.modifiedCount) {

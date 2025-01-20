@@ -136,14 +136,15 @@ const AddPackage = () => {
             {tourPlan.map((plan, index) => (
               <div key={index} className="flex gap-4 items-center mb-2">
                 <span className="text-sm text-white font-bold bg-chocolate p-3 rounded-lg">{`Day ${plan.day}`}</span>
-                <input
+                <textarea
                   type="text"
                   required
+                  rows="2"
                   value={plan.description}
                   onChange={(e) => handleTourPlanChange(index, e.target.value)}
                   className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
                   placeholder={`Day ${plan.day} description`}
-                />
+                > </textarea>
               </div>
             ))}
             <button

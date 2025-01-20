@@ -13,7 +13,7 @@ export const JoinAsGuide = () => {
   const {data : dbUser = {}} = useQuery({
     queryKey: ["user", user?.email],
     queryFn: async () =>{
-      const {data} =await axios.get(`${import.meta.env.VITE_SERVER_API}/users/${user?.email}`);
+      const {data} =await axios.get(`${import.meta.env.VITE_SERVER_API}/user/${user?.email}`);
       return data;
     }
   })

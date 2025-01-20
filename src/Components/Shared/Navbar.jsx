@@ -25,7 +25,7 @@ const Navbar = () => {
             <NavLink to="/about-us">About Us</NavLink>
           </li>
           <li>
-            <NavLink to="/trips">Trips</NavLink>
+            <NavLink to="/all-trips">All Trips</NavLink>
           </li>
         </ul>
       </div>
@@ -62,7 +62,7 @@ const Navbar = () => {
               </h3>
               <h4 className="text-md text-center pb-5">{user?.email}</h4>
               <li>
-                <NavLink to="/dashboard">Dashboard</NavLink>
+                <NavLink to={`/dashboard`}>Dashboard</NavLink>
               </li>
               <li className="mt-2">
                 <button

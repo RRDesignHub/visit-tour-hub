@@ -3,20 +3,25 @@ import axios from "axios";
 import { useState } from "react";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
+import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 
 export const ManageUsers = () => {
+  const axiosSecure = useAxiosSecure();
+  const {user} = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
+
+  // get all user accept the logged in user data from db:
   const {
     data: users = [],
     isLoading: userLoading,
     refetch,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", user?.email],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/users`
-      );
+      const { data } = await axiosSecure(
+        `users/${user?.email}`);
       return data;
     },
   });

@@ -9,16 +9,15 @@ import {
   FaBookOpen,
   FaFileAlt,
 } from "react-icons/fa";
+import { useRole } from "../Hooks/useRole";
 import { TbArrowGuideFilled } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 import { FaUsersGear, FaUsersBetweenLines } from "react-icons/fa6";
 import { LuPackagePlus } from "react-icons/lu";
 import { MdBookmarkAdded } from "react-icons/md";
 const Dashboard = () => {
-  const isTourist = false;
-  const isTourGuide = true;
-  const isAdmin = false;
-
+  const [userRole] = useRole();
+  const {isTourist, isTourGuide, isAdmin} = userRole;
   return (
     <div className="min-h-screen flex bg-sand">
       {/* Sidebar */}

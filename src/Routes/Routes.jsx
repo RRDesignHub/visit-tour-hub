@@ -17,6 +17,7 @@ import { TourGuideProfile } from "../Pages/Dashboard/TouristGuidePages/TourGuide
 import { MyBookings } from "../Pages/Dashboard/TouristPages/MyBookings";
 import { MyAssignedTour } from "../Pages/Dashboard/TouristGuidePages/MyAssignedTour";
 import { Payment } from "../Pages/Dashboard/TouristPages/StripePayment/Payment";
+import { AllTrips } from "../Pages/AllTrips";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/package-details/:id",
         element: <PackageDetails></PackageDetails>,
+      },
+      {
+        path: "/all-trips",
+        element: <AllTrips></AllTrips>,
       },
     ],
   },
