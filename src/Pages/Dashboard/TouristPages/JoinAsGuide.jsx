@@ -1,19 +1,19 @@
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 
 export const JoinAsGuide = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-
+  const axiosSecure = useAxiosSecure();
   
   const {data : dbUser = {}} = useQuery({
     queryKey: ["user", user?.email],
     queryFn: async () =>{
-      const {data} =await axios.get(`${import.meta.env.VITE_SERVER_API}/user/${user?.email}`);
+      const {data} =await axiosSecure.get(`/user/${user?.email}`);
       return data;
     }
   })

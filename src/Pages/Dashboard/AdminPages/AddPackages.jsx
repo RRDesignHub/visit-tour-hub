@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import imageUpload from "../../../Api/Utils";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 
 const AddPackage = () => {
+  const { user } = useAuth();
   const [tourPlan, setTourPlan] = useState([{ day: 1, description: "" }]);
   const [imageFile, setImageFile] = useState(null);
   const [imageURLs, setImageURLs] = useState([]);
-  
+
   const handleAddDay = () => {
     setTourPlan([...tourPlan, { day: tourPlan.length + 1, description: "" }]);
   };
@@ -18,13 +20,13 @@ const AddPackage = () => {
     setTourPlan(updatedPlan);
   };
 
-  const handleUploadImage = async(index, value) => {
+  const handleUploadImage = async (index, value) => {
     // image file upload to imageBB:
     const photoURL = await imageUpload(imageFile);
     setImageURLs([...imageURLs, photoURL]);
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const packageData = {
@@ -37,22 +39,29 @@ const AddPackage = () => {
       description: form.description.value,
       location: form.location.value,
       highlights: form.highlights.value.split(","),
+      adminName: user?.displayName,
+      adminEmail: user?.email,
     };
-   
-    try{
+
+    try {
       // Submit packageData to the backend
-      const {data} = await axios.post(`${import.meta.env.VITE_SERVER_API}/packages`, packageData);
-      if(data.insertedId){
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_SERVER_API}/packages`,
+        packageData
+      );
+      if (data.insertedId) {
+        setImageURLs(imageURLs.length = 0)
+        setTourPlan(tourPlan.length = 0)
         form.reset();
         Swal.fire({
-                position: "center",
-                icon: "success",
-                title: `${packageData.title}, package added successfully!!!`,
-                showConfirmButton: false,
-                timer: 1500,
-              });
+          position: "center",
+          icon: "success",
+          title: `${packageData.title}, package added successfully!!!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   };
@@ -144,7 +153,9 @@ const AddPackage = () => {
                   onChange={(e) => handleTourPlanChange(index, e.target.value)}
                   className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
                   placeholder={`Day ${plan.day} description`}
-                > </textarea>
+                >
+                  {" "}
+                </textarea>
               </div>
             ))}
             <button
@@ -169,9 +180,12 @@ const AddPackage = () => {
               accept="image/*"
               className="w-full mb-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
             />
-            {
-              imageURLs && imageURLs.map((img, i) => <p key={i} className="text-xs">{i +1}. {img},</p>)
-            }
+            {imageURLs &&
+              imageURLs.map((img, i) => (
+                <p key={i} className="text-xs">
+                  {i + 1}. {img},
+                </p>
+              ))}
             <button
               type="button"
               onClick={handleUploadImage}

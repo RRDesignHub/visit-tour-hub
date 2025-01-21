@@ -18,6 +18,15 @@ import { MyBookings } from "../Pages/Dashboard/TouristPages/MyBookings";
 import { MyAssignedTour } from "../Pages/Dashboard/TouristGuidePages/MyAssignedTour";
 import { Payment } from "../Pages/Dashboard/TouristPages/StripePayment/Payment";
 import { AllTrips } from "../Pages/AllTrips";
+import { TouristRoute } from "./TouristRoute";
+import { TourGuideRoute } from "./TourGuideRoute";
+import AdminRoute from "./AdminRoute";
+import { AdminProfile } from "../Pages/Dashboard/AdminPages/AdminProfile";
+import { MyAddedPackages } from "../Pages/Dashboard/AdminPages/MyAddedPackages";
+import { AddStory } from "../Pages/Dashboard/TouristPages/AddStory";
+import { ManageStories } from "../Pages/Dashboard/TouristPages/ManageStories";
+import { UpdateStory } from "../Pages/Dashboard/TouristPages/UpdateStory";
+import { Community } from "../Pages/Community";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/package-details/:id",
         element: <PackageDetails></PackageDetails>,
+      },
+      {
+        path: "/community",
+        element: <Community></Community>,
       },
       {
         path: "/all-trips",
@@ -63,45 +76,120 @@ const router = createBrowserRouter([
       // tourists routes:
       {
         path: "tourist-profile",
-        element: <ManageProfile></ManageProfile>,
+        element: (
+          <TouristRoute>
+            <ManageProfile></ManageProfile>
+          </TouristRoute>
+        ),
       },
       {
         path: "my-bookings",
-        element: <MyBookings></MyBookings>,
+        element: (
+          <TouristRoute>
+            <MyBookings></MyBookings>
+          </TouristRoute>
+        ),
+      },
+      {
+        path: "add-story",
+        element: (
+          <TouristRoute>
+            <AddStory></AddStory>
+          </TouristRoute>
+        ),
+      },
+      {
+        path: "manage-stories",
+        element: (
+          <TouristRoute>
+            <ManageStories></ManageStories>
+          </TouristRoute>
+        ),
+      },
+      {
+        path: "update-story/:id",
+        element: (
+          <TouristRoute>
+            <UpdateStory></UpdateStory>
+          </TouristRoute>
+        ),
       },
       {
         path: "join-as-guide",
-        element: <JoinAsGuide></JoinAsGuide>,
+        element: (
+          <TouristRoute>
+            <JoinAsGuide></JoinAsGuide>
+          </TouristRoute>
+        ),
       },
       {
         path: "payment/:id",
-        element: <Payment></Payment>,
+        element: (
+          <TouristRoute>
+            <Payment></Payment>
+          </TouristRoute>
+        ),
       },
-
 
       // tour-guide routes:
       {
         path: "tour-guide-profile",
-        element: <TourGuideProfile></TourGuideProfile>
+        element: (
+          <TourGuideRoute>
+            <TourGuideProfile></TourGuideProfile>
+          </TourGuideRoute>
+        ),
       },
       {
         path: "my-assigned-tour",
-        element: <MyAssignedTour></MyAssignedTour>
+        element: (
+          <TourGuideRoute>
+            <MyAssignedTour></MyAssignedTour>
+          </TourGuideRoute>
+        ),
       },
 
       // admin routes
       {
+        path: "admin-profile",
+        element: (
+          <AdminRoute>
+            <AdminProfile></AdminProfile>
+          </AdminRoute>
+        ),
+      },
+      {
         path: "add-package",
-        element: <AddPackage></AddPackage>,
+        element: (
+          <AdminRoute>
+            <AddPackage></AddPackage>
+          </AdminRoute>
+        ),
       },
       {
-        path: 'manage-users',
-        element: <ManageUsers></ManageUsers>
+        path: "added-packages",
+        element: (
+          <AdminRoute>
+            <MyAddedPackages></MyAddedPackages>
+          </AdminRoute>
+        ),
       },
       {
-        path: 'manage-candidates',
-        element: <ManageCandidates></ManageCandidates>
-      }
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-candidates",
+        element: (
+          <AdminRoute>
+            <ManageCandidates></ManageCandidates>
+          </AdminRoute>
+        ),
+      },
     ],
   },
 ]);

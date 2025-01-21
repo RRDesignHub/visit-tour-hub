@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import logo from "../../assets/main_logo.jpg";
 import { NavLink, Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";

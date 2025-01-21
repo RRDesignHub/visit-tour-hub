@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   FaHome,
   FaUser,
@@ -17,7 +17,18 @@ import { LuPackagePlus } from "react-icons/lu";
 import { MdBookmarkAdded } from "react-icons/md";
 const Dashboard = () => {
   const [userRole] = useRole();
-  const {isTourist, isTourGuide, isAdmin} = userRole;
+  const { isTourist, isTourGuide, isAdmin } = userRole;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAdmin) {
+      navigate("/dashboard/admin-profile"); // Admin default route
+    } else if (isTourGuide) {
+      navigate("/dashboard/tour-guide-profile"); // Tour guide default route
+    } else if (isTourist) {
+      navigate("/dashboard/tourist-profile"); // Tourist default route
+    }
+  }, [isAdmin, isTourGuide, isTourist, navigate]);
   return (
     <div className="min-h-screen flex bg-sand">
       {/* Sidebar */}
@@ -29,8 +40,6 @@ const Dashboard = () => {
           <h3 className="text-xl font-heebo text-center">Dashboard</h3>
           <div className="divider my-2 h-[2px] bg-[rgba(244,241,222,0.59)]"></div>
           <nav className="space-y-4 px-4">
-            
-
             {/* Tourist-Specific Links */}
             {isTourist && (
               <>
@@ -68,7 +77,7 @@ const Dashboard = () => {
                   Add Stories
                 </NavLink>
                 <NavLink
-                  to="/dashboard/manage-story"
+                  to="/dashboard/manage-stories"
                   className={({ isActive }) =>
                     isActive
                       ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"
@@ -95,7 +104,7 @@ const Dashboard = () => {
             {/* Tour Guide-Specific Links */}
             {isTourGuide && (
               <>
-              <NavLink
+                <NavLink
                   to="/dashboard/tour-guide-profile"
                   className={({ isActive }) =>
                     isActive
@@ -135,7 +144,7 @@ const Dashboard = () => {
             {isAdmin && (
               <>
                 <NavLink
-                  to="/dashboard/manage-profile"
+                  to="/dashboard/admin-profile"
                   className={({ isActive }) =>
                     isActive
                       ? "flex items-center gap-3 px-4 py-2 bg-terracotta text-white rounded-lg"

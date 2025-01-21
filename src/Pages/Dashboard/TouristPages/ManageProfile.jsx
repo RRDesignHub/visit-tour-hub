@@ -5,18 +5,17 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import imageUpload from "../../../Api/Utils";
 import Swal from "sweetalert2";
+import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 
 export const ManageProfile = () => {
   const { user, updateUserProfile } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
   const { data: tourist = {}, refetch } = useQuery({
     queryKey: ["tourist"],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/user/${user?.email}`
-      );
+      const { data } = await axiosSecure.get(`/user/${user?.email}`);
       return data;
     },
   });
@@ -36,7 +35,7 @@ export const ManageProfile = () => {
         `${import.meta.env.VITE_SERVER_API}/user/update/${user?.email}`,
         {
           name,
-          image: photoURL
+          image: photoURL,
         }
       );
       if (data.modifiedCount) {
@@ -81,7 +80,7 @@ export const ManageProfile = () => {
               Email: {tourist?.email}
             </p>
             <p className="text-sm font-heebo text-neutral">
-              Role: {tourist?.role}
+              Role: {tourist?.role === "tourist" && "Tourist"}
             </p>
           </div>
         </div>

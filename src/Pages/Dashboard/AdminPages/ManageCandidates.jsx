@@ -18,7 +18,7 @@ export const ManageCandidates = () => {
     },
   });
 
-// accept the candidates applications:
+  // accept the candidates applications:
   const handleAccept = async (_id, candidate) => {
     try {
       Swal.fire({
@@ -102,40 +102,49 @@ export const ManageCandidates = () => {
           </h2>
           <div className="divider mt-0"></div>
 
-          {/* Candidates Table */}
-          <table className="w-full border-collapse border border-neutral rounded-xl">
-            <thead>
-              <tr className="bg-chocolate text-white">
-                <th className="px-4 py-2 text-left">#</th>
-                <th className="px-4 py-2 text-left">Name</th>
-                <th className="px-4 py-2 text-left">Email</th>
-                <th className="px-4 py-2 text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {candidates.map((candidate, index) => (
-                <tr key={candidate._id} className="border-t">
-                  <td className="px-4 py-2">{index + 1}</td>
-                  <td className="px-4 py-2 font-semibold">{candidate.name}</td>
-                  <td className="px-4 py-2">{candidate.email}</td>
-                  <td className="px-4 py-2 text-center">
-                    <button
-                      onClick={() => handleAccept(candidate._id, candidate)}
-                      className="px-4 py-2 bg-terracotta text-white rounded-lg mr-2 hover:bg-chocolate transition"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => handleReject(candidate._id)}
-                      className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-                    >
-                      Reject
-                    </button>
-                  </td>
+          {candidates.length === 0 ? (
+            <p className="text-center font-heebo">
+              No candidates available.
+            </p>
+          ) : (
+            
+            <table className="w-full border-collapse border border-neutral rounded-xl">
+              <thead>
+                <tr className="bg-chocolate text-white">
+                  <th className="px-4 py-2 text-left">#</th>
+                  <th className="px-4 py-2 text-left">Name</th>
+                  <th className="px-4 py-2 text-left">Email</th>
+                  <th className="px-4 py-2 text-center">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {candidates.map((candidate, index) => (
+                  <tr key={candidate._id} className="border-t">
+                    <td className="px-4 py-2">{index + 1}</td>
+                    <td className="px-4 py-2 font-semibold">
+                      {candidate.name}
+                    </td>
+                    <td className="px-4 py-2">{candidate.email}</td>
+                    <td className="px-4 py-2 text-center">
+                      <button
+                        onClick={() => handleAccept(candidate._id, candidate)}
+                        className="px-4 py-2 bg-terracotta text-white rounded-lg mr-2 hover:bg-chocolate transition"
+                      >
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => handleReject(candidate._id)}
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                      >
+                        Reject
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+
         </div>
       </div>
     </>
