@@ -27,6 +27,8 @@ import { AddStory } from "../Pages/Dashboard/TouristPages/AddStory";
 import { ManageStories } from "../Pages/Dashboard/TouristPages/ManageStories";
 import { UpdateStory } from "../Pages/Dashboard/TouristPages/UpdateStory";
 import { Community } from "../Pages/Community";
+import { AddGuideStory } from "../Pages/Dashboard/TouristGuidePages/AddGuideStory";
+import { ManageGuideStories } from "../Pages/Dashboard/TouristGuidePages/ManageGuideStories";
 
 const router = createBrowserRouter([
   {
@@ -145,6 +147,30 @@ const router = createBrowserRouter([
         element: (
           <TourGuideRoute>
             <MyAssignedTour></MyAssignedTour>
+          </TourGuideRoute>
+        ),
+      },
+      {
+        path: "add-guide-story",
+        element: (
+          <TourGuideRoute>
+            <AddGuideStory></AddGuideStory>
+          </TourGuideRoute>
+        ),
+      },
+      {
+        path: "manage-guide-stories",
+        element: (
+          <TourGuideRoute>
+            <ManageGuideStories></ManageGuideStories>
+          </TourGuideRoute>
+        ),
+      },
+      {
+        path: "update-guide-story/:id",
+        element: (
+          <TourGuideRoute>
+            <UpdateStory></UpdateStory>
           </TourGuideRoute>
         ),
       },

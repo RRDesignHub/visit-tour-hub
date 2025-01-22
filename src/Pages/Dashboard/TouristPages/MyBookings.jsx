@@ -1,27 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import useAuth from "../../../Hooks/useAuth";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import useUser from "../../../Hooks/useUser";
+import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 
 export const MyBookings = () => {
-  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const [userData, userDataLoading] = useUser();
   const {
     data: bookings = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["bookngs", user?.email],
+    queryKey: ["bookngs", userData?.email],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/bookings/${user?.email}`
+      const { data } = await axiosSecure.get(
+        `/bookings/${userData?.email}`
       );
       return data;
     },
   });
 
-  if (isLoading) {
+  if (isLoading || userDataLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
 
@@ -36,10 +38,8 @@ export const MyBookings = () => {
       confirmButtonText: "Yes, Cancel!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axios.patch(
-          `${
-            import.meta.env.VITE_SERVER_API
-          }/booking/cancel-booking/${id}?packageId=${packageId}&touristId=${touristId}&guideId=${guideId}`
+        const { data } = await axiosSecure.patch(
+          `/booking/cancel-booking/${id}?packageId=${packageId}&touristId=${touristId}&guideId=${guideId}`
         );
         if (data.modifiedCount) {
           Swal.fire({

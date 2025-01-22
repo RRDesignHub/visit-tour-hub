@@ -1,10 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
+import { useState } from "react";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
+import useUser from "../../../Hooks/useUser";
+import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
+import imageUpload from "../../../Api/Utils";
+import Swal from "sweetalert2";
 
 export const AdminProfile = () => {
-  const {user} = useAuth();
+  const {updateUserProfile} = useAuth()
+  const [userData, userDataLoading] = useUser();
   const axiosSecure = useAxiosSecure();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -17,27 +22,50 @@ export const AdminProfile = () => {
     totalStories: 75,
   };
 
-  // get admin details from db:
-  const {data: admin = {}, isLoading} = useQuery({
-    queryKey: ["admin"],
-    queryFn: async() =>{
-      const {data} = await axiosSecure.get(`/user/${user?.email}`);
-      return data;
-    }
-  })
+ 
+  const handleAdminUpdate = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const imageFile = form.imageFile.files[0];
+    // image file upload to imageBB:
+    const photoURL = await imageUpload(imageFile);
 
-  const adminInfo = {
-    name: "John Doe",
-    email: "admin@tourhub.com",
-    image: "https://via.placeholder.com/150",
-    role: "Admin",
+    try {
+      const { data } = await axiosSecure.patch(
+        `/admin/update/${userData?.email}`,
+        {
+          name,
+          image: photoURL
+        }
+      );
+      if (data.modifiedCount) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `${name} successfully update your profile!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        await updateUserProfile(name, photoURL);
+        
+        refetch();
+        setIsEditModalOpen(false);
+      }
+    } catch (err) {
+      console.log("Update tour guide profile error -->", err);
+    }
   };
+
+  if(userDataLoading){
+    return <LoadingSpinner></LoadingSpinner>
+  }
   return (
     <div className="container mx-auto px-6 lg:px-12 py-12">
       {/* Welcome Message */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-nunito font-bold text-chocolate">
-          Welcome, <span className="text-terracotta">{adminInfo.name}</span>!
+          Welcome, <span className="text-terracotta">{userData.name}</span>!
         </h1>
         <p className="text-lg font-heebo text-neutral mt-2">
           Manage your profile and track the platform's performance.
@@ -66,19 +94,19 @@ export const AdminProfile = () => {
       <section className="bg-white p-6 rounded-lg shadow-lg max-w-3xl border-l-4 border-r-4 border-terracotta mx-auto">
         <div className="flex flex-col items-center gap-6">
           <img
-            src={admin.image}
-            alt={admin.name}
+            src={userData.image}
+            alt={userData.name}
             className="w-24 h-24 rounded-full border-2 border-chocolate"
           />
           <div className="text-center">
             <h2 className="text-xl font-nunito font-bold text-chocolate">
-              {admin.name}
+              {userData.name}
             </h2>
             <p className="text-sm font-heebo text-neutral">
-              Email: {admin.email}
+              Email: {userData.email}
             </p>
             <p className="text-sm font-heebo text-neutral">
-              Role: {admin.role}
+              Role: {userData.role === "admin" ? "Admin" : ""}
             </p>
           </div>
           <button
@@ -97,7 +125,7 @@ export const AdminProfile = () => {
             <h2 className="text-xl font-nunito font-bold text-chocolate mb-4">
               Edit Profile
             </h2>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleAdminUpdate}>
               {/* Name */}
               <div>
                 <label className="block text-sm font-heebo text-chocolate mb-2">
@@ -106,7 +134,7 @@ export const AdminProfile = () => {
                 <input
                   type="text"
                   name="name"
-                  defaultValue={adminInfo.name}
+                  defaultValue={userData.name}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
                 />
               </div>
@@ -136,7 +164,7 @@ export const AdminProfile = () => {
                 <input
                   type="email"
                   name="email"
-                  value={adminInfo.email}
+                  value={userData.email}
                   readOnly
                   className="w-full px-4 py-2 border rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
                 />
@@ -150,7 +178,7 @@ export const AdminProfile = () => {
                 <input
                   type="text"
                   name="role"
-                  value={adminInfo.role}
+                  value={userData.role}
                   readOnly
                   className="w-full px-4 py-2 border rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
                 />

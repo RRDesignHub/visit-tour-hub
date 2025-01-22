@@ -6,13 +6,15 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 
-export const AddStory = () => {
+export const AddGuideStory = () => {
   const navigate = useNavigate();
   const [userData, userDataLoading] = useUser();
   const axiosSecure = useAxiosSecure();
   const [imageFile, setImageFile] = useState(null);
   const [imageURLs, setImageURLs] = useState([]);
+  const [error, setError] = useState("");
   const handleUploadImage = async () => {
+    setError("")
     // image file upload to imageBB:
     const photoURL = await imageUpload(imageFile);
     setImageURLs([...imageURLs, photoURL]);
@@ -20,7 +22,9 @@ export const AddStory = () => {
   const handleAddStory = async (e) => {
     e.preventDefault();
     const form = e.target;
-
+    if(imageURLs.length === 0){
+      return setError("Please add the images!!!");
+    }
     try {
       const { data } = await axiosSecure.post("/add-story", {
         title: form.title.value,
@@ -33,6 +37,7 @@ export const AddStory = () => {
       });
       if (data.insertedId) {
         form.reset();
+        setError("")
         setImageURLs([]);
         Swal.fire({
           position: "center",
@@ -41,10 +46,10 @@ export const AddStory = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/dashboard/manage-stories")
+        navigate("/dashboard/manage-guide-stories")
       }
     } catch (err) {
-      console.log("Add story by tourist Error-->", err);
+      console.log("Add story by guide Error-->", err);
     }
   };
 
@@ -94,6 +99,9 @@ export const AddStory = () => {
             onChange={(e) => setImageFile(e.target.files[0])}
             className="block w-full text-sm text-gray-500"
           />
+          {
+            error && <p className="py-4 text-red-500">{error}</p>
+          }
           {imageURLs.length !== 0 && (
             <div className="mt-4 grid grid-cols-3  gap-2 items-center bg-sand p-2 rounded-md">
               {imageURLs.map((img, i) => (

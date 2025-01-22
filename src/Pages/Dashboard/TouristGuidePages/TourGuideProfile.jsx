@@ -1,25 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
+import useUser from "../../../Hooks/useUser";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import imageUpload from "../../../Api/Utils";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import Swal from "sweetalert2";
 
 export const TourGuideProfile = () => {
+  const {updateUserProfile} = useAuth()
   const axiosSecure = useAxiosSecure();
-  const { user, updateUserProfile } = useAuth();
+  const [userData, userDataLoading] = useUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     data: tourGuide = {},
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["guide"],
+    queryKey: ["guide", userData?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `/tour-guide/${user?.email}`
+        `/tour-guide/${userData?.email}`
       );
       return data;
     },
@@ -50,7 +51,7 @@ export const TourGuideProfile = () => {
 
     try {
       const { data } = await axiosSecure.patch(
-        `${import.meta.env.VITE_SERVER_API}/tour-guide/update/${_id}`,
+        `/tour-guide/update/${_id}`,
         {
           name,
           image: photoURL,
@@ -77,7 +78,7 @@ export const TourGuideProfile = () => {
     }
   };
 
-  if (isLoading) {
+  if (userDataLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   return (
@@ -118,7 +119,7 @@ export const TourGuideProfile = () => {
             </div>
 
             {/* Professional Info */}
-            <div className="w-[70%] mx-auto grid grid-cols-1 md:grid-cols-2 md:gap-x-20 gap-y-3">
+            <div className="w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 md:gap-x-20 gap-y-3">
               <div className="flex items-center  gap-2">
                 <p className="text-lg font-nunito font-bold text-chocolate ">
                   Speciality:
@@ -170,10 +171,10 @@ export const TourGuideProfile = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="w-[70%] mx-auto mt-6">
+          <div className="w-[80%] mx-auto flex justify-end mt-6">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-4 py-2 mx-auto bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
+              className="px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
             >
               Edit Profile
             </button>
@@ -196,7 +197,6 @@ export const TourGuideProfile = () => {
                   <input
                     type="text"
                     name="name"
-                    readOnly
                     defaultValue={name}
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
                   />

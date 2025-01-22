@@ -1,34 +1,29 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { CgProfile } from "react-icons/cg";
 import { LoadingSpinner } from "../Shared/LoadingSpinner";
+import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
 export const Booking = ({ packageData, guides }) => {
+  const {user} = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [tourDate, setTourDate] = useState(new Date());
   const [selectedGuide, setSelectedGuide] = useState({});
-  const { user } = useAuth();
   const navigate = useNavigate();
-
-  // get the user's data fromdb:
-  const { data: tourist = {}, isLoading: touristLoading } = useQuery({
-    queryKey: ["tourist", user?.email],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/user/${user?.email}`
-      );
+ 
+  const {data: userData= {}, isloading} = useQuery({
+    queryKey: ["user", user?.email],
+    queryFn: async() =>{
+      const {data} = await axios.get(`${import.meta.env.VITE_SERVER_API}/guest-user/${user?.email}`);
       return data;
-    },
-  });
-
-  //if data loading??
-  if (touristLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
+    }
+  })
+  
 
   // distructure package data:
   const { _id, title } = packageData || {};
@@ -36,7 +31,7 @@ export const Booking = ({ packageData, guides }) => {
   // bookin submiting into db :
   const handleBooking = async (e) => {
     e.preventDefault();
-    if (!user) {
+    if (!userData) {
       return Swal.fire({
         title: "You need to Login/Register first!!!",
         showDenyButton: true,
@@ -59,16 +54,16 @@ export const Booking = ({ packageData, guides }) => {
     const form = e.terget;
     const packageName = title;
     const packageId = _id;
-    const touristName = tourist.name;
-    const touristEmail = tourist.email;
-    const touristImage = tourist.image;
-    const touristId = tourist._id;
+    const touristName = userData.name;
+    const touristEmail = userData.email;
+    const touristImage = userData.image;
+    const touristId = userData._id;
     const price = parseFloat(packageData.price);
     const guideName = selectedGuide.guideName;
     const guideId = selectedGuide.guideId;
 
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_SERVER_API}/bookings/${packageId}`,
+    const { data } = await axiosSecure.post(
+      `/bookings/${packageId}`,
       {
         packageName,
         packageId,
@@ -118,13 +113,17 @@ export const Booking = ({ packageData, guides }) => {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          navigate("/dashboard/confirm-booking");
+          navigate("/dashboard");
         } else if (result.isDenied) {
           navigate("/dashboard/my-bookings");
         }
       });
     }
   };
+  //if data loading??
+  if (isloading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
   return (
     <>
       {/* Booking Form Section */}
@@ -143,11 +142,11 @@ export const Booking = ({ packageData, guides }) => {
               Your Photo
             </label>
 
-            {user ? (
+            {userData ? (
               <img
-                src={tourist.image}
-                alt={tourist.name || "User"}
-                className="w-16 h-16 rounded-full border border-terracotta"
+                src={userData.image}
+                alt={userData.name || "User"}
+                className="w-16 h-16 rounded-full border-2 border-terracotta"
               />
             ) : (
               <CgProfile className="text-terracotta h-14 w-14" />
@@ -176,7 +175,7 @@ export const Booking = ({ packageData, guides }) => {
               </label>
               <input
                 type="text"
-                value={tourist.name || "Guest"}
+                value={userData?.name || "Guest"}
                 readOnly
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none"
               />
@@ -189,7 +188,7 @@ export const Booking = ({ packageData, guides }) => {
               </label>
               <input
                 type="text"
-                value={tourist.email || ""}
+                value={userData?.email || ""}
                 readOnly
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none"
               />

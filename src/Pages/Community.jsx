@@ -86,7 +86,7 @@ export const Community = () => {
                   src={story?.userImage || ""}
                   alt={story.userName}
                   referrerPolicy="no-referrer"
-                  className="w-8 h-8 rounded-full border"
+                  className="w-8 h-8 rounded-full border-2 border-terracotta"
                 />
                 <p className="text-sm font-heebo text-chocolate">{story.userName}</p>
               </div>

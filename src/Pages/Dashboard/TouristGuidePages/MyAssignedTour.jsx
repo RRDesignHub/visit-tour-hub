@@ -1,19 +1,19 @@
+import useUser from "../../../Hooks/useUser";
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../Hooks/useAuth";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 import axios from "axios";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import Swal from "sweetalert2";
 
 export const MyAssignedTour = () => {
-  const { user } = useAuth();
+  const [userData, userDataLoading] = useUser();
   const axiosSecure = useAxiosSecure();
   // get guide data fro data for guide name and id:
   const { data: tourGuide = {}, isLoading: guideLoading } = useQuery({
-    queryKey: ["guide", user?.email],
+    queryKey: ["guide", userData?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `/tour-guide/${user?.email}`
+        `/tour-guide/${userData?.email}`
       );
       return data;
     },
@@ -34,7 +34,7 @@ export const MyAssignedTour = () => {
     },
   });
 
-  if (guideLoading || isLoading) {
+  if (guideLoading || userDataLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
 
@@ -49,8 +49,8 @@ export const MyAssignedTour = () => {
       confirmButtonText: "Yes, Accept!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axios.patch(
-          `${import.meta.env.VITE_SERVER_API}/assigned-tours/accept/${id}`, {
+        const { data } = await axiosSecure.patch(
+          `/assigned-tours/accept/${id}`, {
             status: "accepted", packageId, touristId, guideId
           }
         );
@@ -79,8 +79,8 @@ export const MyAssignedTour = () => {
       confirmButtonText: "Yes, Reject!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axios.patch(
-          `${import.meta.env.VITE_SERVER_API}/assigned-tours/reject/${id}`, {
+        const { data } = await axiosSecure.patch(
+          `/assigned-tours/reject/${id}`, {
             status: "rejected", packageId, touristId, guideId
           }
         );

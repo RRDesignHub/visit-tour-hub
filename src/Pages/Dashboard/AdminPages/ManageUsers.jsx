@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
+import useUser from "../../../Hooks/useUser";
 import axios from "axios";
 import { useState } from "react";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import Swal from "sweetalert2";
-import useAuth from "../../../Hooks/useAuth";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 
 export const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
-  const {user} = useAuth();
+  const [userData, userDataLoading] = useUser();
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
 
@@ -18,10 +18,10 @@ export const ManageUsers = () => {
     isLoading: userLoading,
     refetch,
   } = useQuery({
-    queryKey: ["users", user?.email],
+    queryKey: ["users", userData?.email],
     queryFn: async () => {
       const { data } = await axiosSecure(
-        `users/${user?.email}`);
+        `users/${userData?.email}`);
       return data;
     },
   });
@@ -38,8 +38,8 @@ export const ManageUsers = () => {
         confirmButtonText: "Yes, Change!"
       }).then(async(result) => {
         if (result.isConfirmed) {
-          const { data } = await axios.patch(
-            `${import.meta.env.VITE_SERVER_API}/users/${_id}`,
+          const { data } = await axiosSecure.patch(
+            `/user/role-update/${_id}`,
             { role }
           );
           if (data.message === "Already Tour Guide!!!") {
@@ -69,7 +69,7 @@ export const ManageUsers = () => {
     }
   };
 
-  if (userLoading) {
+  if (userLoading || userDataLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   return (

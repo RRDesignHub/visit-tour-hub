@@ -1,22 +1,16 @@
 import axios from "axios";
-import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
+import useUser from "../../../Hooks/useUser";
+import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 
 export const JoinAsGuide = () => {
-  const { user } = useAuth();
+  const [userData, userDataLoading] = useUser();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   
-  const {data : dbUser = {}} = useQuery({
-    queryKey: ["user", user?.email],
-    queryFn: async () =>{
-      const {data} =await axiosSecure.get(`/user/${user?.email}`);
-      return data;
-    }
-  })
   const handleJoinAsGuide = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -25,13 +19,13 @@ export const JoinAsGuide = () => {
     const cvLink = form.cv.value;
 
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_SERVER_API}/guides-applications/${dbUser?.email}`,
+      const { data } = await axiosSecure.post(
+        `/guides-applications/apply/${userData?.email}`,
         {
-          userId: dbUser._id,
-          name:dbUser?.name,
-          email: dbUser?.email,
-          image: dbUser?.image,
+          userId: userData._id,
+          name:userData?.name,
+          email: userData?.email,
+          image: userData?.image,
           title,
           reason,
           cvLink,
@@ -63,6 +57,10 @@ export const JoinAsGuide = () => {
       console.log("Join as guide error -->", err);
     }
   };
+
+  if(userDataLoading){
+    return <LoadingSpinner></LoadingSpinner>
+  }
   return (
     <>
       <div className="mt-8 container mx-auto max-w-lg bg-white shadow-lg rounded-lg p-8">

@@ -6,14 +6,15 @@ import axios from "axios";
 import imageUpload from "../../../Api/Utils";
 import Swal from "sweetalert2";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
+import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 
 export const ManageProfile = () => {
   const { user, updateUserProfile } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { data: tourist = {}, refetch } = useQuery({
-    queryKey: ["tourist"],
+  const { data: tourist = {}, isLoading, refetch } = useQuery({
+    queryKey: ["tourist", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/user/${user?.email}`);
       return data;
@@ -31,15 +32,15 @@ export const ManageProfile = () => {
     const photoURL = await imageUpload(imageFile);
 
     try {
-      const { data } = await axios.patch(
-        `${import.meta.env.VITE_SERVER_API}/user/update/${user?.email}`,
+      const { data } = await axiosSecure.patch(
+        `/user/update/${user?.email}`,
         {
           name,
           image: photoURL,
         }
       );
       if (data.modifiedCount) {
-        refetch();
+        
         Swal.fire({
           position: "center",
           icon: "success",
@@ -49,11 +50,16 @@ export const ManageProfile = () => {
         });
         await updateUserProfile(name, photoURL);
         setIsModalOpen(false);
+        refetch();
       }
     } catch (err) {
       console.log("Update tourist profile error -->", err);
     }
   };
+
+  if(isLoading){
+    return <LoadingSpinner></LoadingSpinner>
+  }
   return (
     <div className="container mx-auto px-6 lg:px-6 py-12">
       {/* Tourist Information */}
@@ -68,6 +74,7 @@ export const ManageProfile = () => {
             </p>
           </div>
           <img
+            referrerPolicy="no-referrer"
             src={tourist?.image}
             alt={tourist?.name}
             className="w-24 h-24 rounded-full border-2 border-chocolate"
