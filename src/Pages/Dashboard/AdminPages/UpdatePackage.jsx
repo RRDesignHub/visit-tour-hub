@@ -1,40 +1,70 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import useUser from "../../../Hooks/useUser";
+import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
+import imageUpload from "../../../Api/Utils";
 import { useEffect, useState } from "react";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
-import imageUpload from "../../../Api/Utils";
 import Swal from "sweetalert2";
-import useAuth from "../../../Hooks/useAuth";
 
-const AddPackage = () => {
+export const UpdatePackage = () => {
+  const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+  const [userData, userDataLoading] = useUser()
   const [tourPlan, setTourPlan] = useState([{ day: 1, description: "" }]);
-  const [imageFile, setImageFile] = useState(null);
-  const [imageURLs, setImageURLs] = useState([]);
-  const [error, setError] = useState('');
+  const [existingImages, setExistingImages] = useState([]); //existing images after removing
+  const [removedImages, setRemovedImages] = useState([]); //removed Images
+  const [newImages, setNewImages] = useState([]); //images URL after uploaded image to imageBB
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  // get pacake data feom db:
+  const {
+    data: packageDetails = {},
+    isLoading: packageLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["package", id],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_SERVER_API}/packages/${id}`
+      );
+      return data;
+    },
+  });
 
-  const handleAddDay = () => {
-    setTourPlan([...tourPlan, { day: tourPlan.length + 1, description: "" }]);
+   useEffect(() =>{
+      setExistingImages(packageDetails.images);
+    },[packageDetails.images])
+
+    const handleAddDay = () => {
+      setTourPlan([...tourPlan, { day: tourPlan.length + 1, description: "" }]);
+    };
+
+    const handleTourPlanChange = (index, value) => {
+      const updatedPlan = [...tourPlan];
+      updatedPlan[index].description = value;
+      setTourPlan(updatedPlan);
+    };
+
+
+  // remove image from the image state:
+  const handleImageRemove = (imgUrl) => {
+    setExistingImages(existingImages.filter((img) => img !== imgUrl));
+    setRemovedImages([...removedImages, imgUrl]);
   };
-
-  const handleTourPlanChange = (index, value) => {
-    const updatedPlan = [...tourPlan];
-    updatedPlan[index].description = value;
-    setTourPlan(updatedPlan);
-  };
-
-  const handleUploadImage = async () => {
-    setError("")
+  
+  
+  // upload new image:
+  const handleNewImageUpload = async (imageFile) => {
     // image file upload to imageBB:
     const photoURL = await imageUpload(imageFile);
-    setImageURLs([...imageURLs, photoURL]);
+    setNewImages([...newImages, photoURL]);
   };
 
-  // remove Image:
-  const handleImageRemove = (image) =>{ 
-    setImageURLs(imageURLs.filter(img => image !== img)) 
-  }
+  
 
-  const handleSubmit = async (e) => {
+  const handleUpdatePackage = async(e) => {
     e.preventDefault();
     const form = e.target;
     const packageData = {
@@ -43,50 +73,42 @@ const AddPackage = () => {
       price: parseFloat(form.price.value),
       duration: form.duration.value,
       tourPlan: tourPlan,
-      images: imageURLs,
       description: form.description.value,
       location: form.location.value,
       highlights: form.highlights.value.split(","),
-      adminName: user?.displayName,
-      adminEmail: user?.email,
+      removedImages,
+      newImages
     };
 
-    // check the images add or not:
-    if(imageURLs.length === 0){
-      return setError("Please add package images.")
-    }
-
     try {
-      // Submit packageData to the backend
-      const { data } = await axiosSecure.post(
-        `/add-package`,
-        packageData
-      );
-      if (data.insertedId) {
-        setImageURLs(imageURLs.length = 0)
-        setTourPlan(tourPlan.length = 0)
-        form.reset();
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: `${packageData.title}, package added successfully!!!`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    } catch (err) {
-      console.log("Add package error-->",err);
-    }
+          const { data } = await axiosSecure.patch(`/packages/update/${id}`, packageData);
+          if (data.modifiedCount) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `Your story updated successfully!!!`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            refetch()
+            navigate("/dashboard/added-packages");
+          }
+        } catch (err) {
+          console.log("Package update error-->", err);
+        }
   };
 
+  if (userDataLoading || packageLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
   return (
     <section className="min-h-screen p-6">
       <div className="container mx-auto max-w-4xl bg-white shadow-lg rounded-lg p-8">
         <h2 className="text-3xl text-center  font-nunito font-bold text-chocolate">
-          Add a New Package
+          Update Package
         </h2>
         <div className="divider my-2"></div>
-        <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-4">
+        <form onSubmit={handleUpdatePackage} className="grid grid-cols-3 gap-4">
           {/* Tour Title */}
           <div className="mb-4 col-span-3">
             <label className="block text-sm font-heebo text-chocolate mb-2">
@@ -95,32 +117,31 @@ const AddPackage = () => {
             <input
               type="text"
               name="title"
-              required
+              defaultValue={packageDetails?.title}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
               placeholder="Enter package title"
             />
           </div>
 
           {/* Tour Type */}
-          <div className="mb-4 col-span-1">
-            <label className="block  text-sm font-heebo text-chocolate mb-2">
-              Tour Type
-            </label>
-            <select
-              name="type"
-              required
-              defaultValue=""
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
-            >
-              <option value="" disabled>
-                Choose Tour
-              </option>
-              <option value="Adventure">Adventure</option>
-              <option value="Cultural">Cultural</option>
-              <option value="Relaxation">Relaxation</option>
-              <option value="Nature">Nature</option>
-            </select>
-          </div>
+          {packageDetails?.type && (
+            <div className="mb-4 col-span-1">
+              <label className="block  text-sm font-heebo text-chocolate mb-2">
+                Tour Type
+              </label>
+              <select
+                name="type"
+
+                defaultValue={packageDetails.type}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
+              >
+                <option value="Adventure">Adventure</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Relaxation">Relaxation</option>
+                <option value="Nature">Nature</option>
+              </select>
+            </div>
+          )}
 
           {/* Price */}
           <div className="mb-4 col-span-1">
@@ -130,7 +151,7 @@ const AddPackage = () => {
             <input
               type="number"
               name="price"
-              required
+              defaultValue={packageDetails?.price}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
               placeholder="Enter package price"
             />
@@ -144,7 +165,7 @@ const AddPackage = () => {
             <input
               type="text"
               name="duration"
-              required
+              defaultValue={packageDetails?.duration}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
               placeholder="E.g., 3 days, 5 days"
             />
@@ -183,46 +204,54 @@ const AddPackage = () => {
           {/* Images */}
           <div className="mb-6 col-span-3">
             <label className="block text-sm font-heebo text-chocolate mb-2">
-              Images (jpg, jpeg, png)
+              Add Images (jpg, jpeg, png)
             </label>
             <input
               type="file"
               required
               name="imageFile"
-              onChange={(e) => setImageFile(e.target.files[0])}
+              onChange={(e) => handleNewImageUpload(e.target.files[0])}
               accept="image/*"
               className="w-full mb-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
             />
+            {error && <p className="py-4 text-red-500">{error}</p>}
             {
-            error && <p className="py-4 text-red-500">{error}</p>
-          }
-          {imageURLs.length !== 0 && (
-            <div className="mt-4 grid grid-cols-3  gap-2 items-center bg-sand p-2 rounded-md">
-              {imageURLs.map((img) => (
+              newImages?.length !==0 && <div className="mt-4 grid grid-cols-3  gap-2 items-center bg-sand p-2 rounded-md">
+              <p className="text-sm col-span-3">New images:</p>
+              {newImages.map((img) => (
                 <div key={img} className="relative">
-                <img
-                  src={img}
-                  alt="Packages"
-                  className="w-full h-24 object-cover rounded-lg"
-                />
-                <button
-                  type="button"
-                  onClick={() => handleImageRemove(img)}
-                  className="absolute top-1 right-1 bg-red-500 text-white px-2 py-1 rounded-full text-xs hover:bg-red-700"
-                >
-                  Remove
-                </button>
-              </div>
+                  <img
+                    src={img}
+                    alt="Packages"
+                    className="w-full h-24 object-cover rounded-lg"
+                  />
+                  
+                </div>
               ))}
             </div>
-          )}
-            <button
-              type="button"
-              onClick={handleUploadImage}
-              className="mt-2 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
-            >
-              Add Image
-            </button>
+            }
+            {existingImages?.length !== 0 && (
+              <div className="mt-4 grid grid-cols-3  gap-2 items-center bg-sand p-2 rounded-md">
+                <p className="text-sm col-span-3">Existing images:</p>
+                {existingImages.map((img) => (
+                  <div key={img} className="relative">
+                    <img
+                      src={img}
+                      alt="Packages"
+                      className="w-full h-24 object-cover rounded-lg"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleImageRemove(img)}
+                      className="absolute top-1 right-1 bg-red-500 text-white px-2 py-1 rounded-full text-xs hover:bg-red-700"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            
           </div>
 
           {/* Description */}
@@ -232,7 +261,7 @@ const AddPackage = () => {
             </label>
             <textarea
               name="description"
-              required
+              defaultValue={packageDetails?.description}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
               rows="4"
               placeholder="Enter a detailed description"
@@ -247,7 +276,7 @@ const AddPackage = () => {
             <input
               type="text"
               name="location"
-              required
+              defaultValue={packageDetails?.location}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
               placeholder="Enter location"
             />
@@ -261,7 +290,9 @@ const AddPackage = () => {
             <input
               type="text"
               name="highlights"
-              required
+              defaultValue={packageDetails?.highlights.map(
+                (text, index) => text
+              )}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
               placeholder="E.g: Boating, Wildlife Safari, Beach"
             />
@@ -279,5 +310,3 @@ const AddPackage = () => {
     </section>
   );
 };
-
-export default AddPackage;

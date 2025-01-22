@@ -29,6 +29,7 @@ import { UpdateStory } from "../Pages/Dashboard/TouristPages/UpdateStory";
 import { Community } from "../Pages/Community";
 import { AddGuideStory } from "../Pages/Dashboard/TouristGuidePages/AddGuideStory";
 import { ManageGuideStories } from "../Pages/Dashboard/TouristGuidePages/ManageGuideStories";
+import { UpdatePackage } from "../Pages/Dashboard/AdminPages/UpdatePackage";
 
 const router = createBrowserRouter([
   {
@@ -197,6 +198,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <MyAddedPackages></MyAddedPackages>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "update-package/:id",
+        element: (
+          <AdminRoute>
+            <UpdatePackage></UpdatePackage>
           </AdminRoute>
         ),
       },

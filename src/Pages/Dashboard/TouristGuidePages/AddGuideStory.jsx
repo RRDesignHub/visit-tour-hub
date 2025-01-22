@@ -76,6 +76,8 @@ export const AddGuideStory = () => {
             required
           />
         </div>
+
+        {/* descriptions */}
         <div className="mb-6">
           <label className="block text-sm font-heebo text-chocolate mb-2">
             Content
@@ -87,6 +89,8 @@ export const AddGuideStory = () => {
             required
           ></textarea>
         </div>
+
+        {/* upload images */}
         <div className="mb-6">
           <label className="block text-sm font-heebo text-chocolate mb-2">
             Upload Images

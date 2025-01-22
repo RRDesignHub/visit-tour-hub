@@ -1,31 +1,33 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../Hooks/useAuth";
+import useUser from "../../../Hooks/useUser";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export const MyAddedPackages = () => {
-  const { user } = useAuth();
+  const [userData, userDataLoading] = useUser();
   const axiosSecure = useAxiosSecure();
-  const { data: packages = [], isLoading, refetch } = useQuery({
-    queryKey: ["packages", user?.email],
+  const {
+    data: packages = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["packages", userData?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/admin-packages/${user?.email}`);
+      const { data } = await axiosSecure.get(
+        `/admin-packages/${userData?.email}`
+      );
       return data;
     },
   });
 
-
-
-  if(isLoading) {
-    return <LoadingSpinner></LoadingSpinner>
+  if (userDataLoading || isLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
-  // update packages:
-  const handleUpdate = async() =>{}
-
   // delete the package:
-  const handleDelete = async(_id) =>{
+  const handleDelete = async (_id) => {
     Swal.fire({
       title: `Are you sure?`,
       text: "You have to added the package again!",
@@ -36,8 +38,7 @@ export const MyAddedPackages = () => {
       confirmButtonText: "Yes, Delete!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axiosSecure.delete(
-          `/package/delete/${_id}`);
+        const { data } = await axiosSecure.delete(`/package/delete/${_id}`);
         if (data.deletedCount) {
           Swal.fire({
             position: "center",
@@ -50,7 +51,7 @@ export const MyAddedPackages = () => {
         }
       }
     });
-  }
+  };
   return (
     <div className="min-h-screen bg-sand p-6">
       <div className="container mx-auto bg-white shadow-lg rounded-xl p-8">
@@ -93,49 +94,49 @@ export const MyAddedPackages = () => {
           </div>
         </div>
 
-        {
-          packages.length === 0 ? 
-          <p className="text-center font-heebo">You are not added any packages yet.</p> :
+        {packages.length === 0 ? (
+          <p className="text-center font-heebo">
+            You are not added any packages yet.
+          </p>
+        ) : (
           <table className="w-full border-collapse border border-neutral rounded-xl">
-          <thead>
-            <tr className="bg-chocolate text-white">
-              <th className="px-4 py-2 text-left">#</th>
-              <th className="px-4 py-2 text-left">Package Title</th>
-              <th className="px-4 py-2 text-center">Type</th>
-              <th className="px-4 py-2 text-left">Price</th>
-              <th className="px-4 py-2 text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {packages.map((item, index) => (
-              <tr key={item._id} className="border-t">
-                <td className="px-4 py-2">{index + 1}</td>
-                <td className="px-4 py-2">{item.title.split(" ").slice(0,7).join(" ")}</td>
-                <td className="px-4 py-2 text-center">{item.type}</td>
-                <td className="px-4 py-2 text-right">${item.price}</td>
-                
-                <td className="px-4 py-2 text-center">
-                <button
-                      className="px-4 py-2 bg-chocolate text-white rounded-lg hover:bg-neutral transition"
-                      onClick={() => handleUpdate()}
-                      
-                    >
-                      Update
-                    </button>
+            <thead>
+              <tr className="bg-chocolate text-white">
+                <th className="px-4 py-2 text-left">#</th>
+                <th className="px-4 py-2 text-left">Package Title</th>
+                <th className="px-4 py-2 text-center">Type</th>
+                <th className="px-4 py-2 text-left">Price</th>
+                <th className="px-4 py-2 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {packages.map((item, index) => (
+                <tr key={item._id} className="border-t">
+                  <td className="px-4 py-2">{index + 1}</td>
+                  <td className="px-4 py-2">
+                    {item.title.split(" ").slice(0, 7).join(" ")}
+                  </td>
+                  <td className="px-4 py-2 text-center">{item.type}</td>
+                  <td className="px-4 py-2 text-right">${item.price}</td>
+
+                  <td className="px-4 py-2 text-center">
+                    <Link to={`/dashboard/update-package/${item._id}`}>
+                      <button className="px-4 py-2 bg-chocolate text-white rounded-lg hover:bg-neutral transition">
+                        Update
+                      </button>
+                    </Link>
                     <button
                       className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition ml-2"
                       onClick={() => handleDelete(item._id)}
-                     
                     >
-                     Delete
+                      Delete
                     </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        }
-
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
