@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export const OurGuide = ({ guides }) => {
   return (
@@ -25,12 +26,12 @@ export const OurGuide = ({ guides }) => {
                 <p className="text-sm font-heebo text-neutral">
                   {guide.speciality || "General Tours"}
                 </p>
+                <Link to={`/guide-details/${guide._id}`}>
                 <button
-                  onClick={() => navigate(`/guides/${guide.id}`)}
                   className="mt-4 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate"
                 >
                   View Profile
-                </button>
+                </button></Link>
               </div>
             ))}
         </div>

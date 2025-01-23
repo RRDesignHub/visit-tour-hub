@@ -101,6 +101,7 @@ const AddPackage = () => {
             />
           </div>
 
+
           {/* Tour Type */}
           <div className="mb-4 col-span-1">
             <label className="block  text-sm font-heebo text-chocolate mb-2">
@@ -155,7 +156,7 @@ const AddPackage = () => {
             <label className="block text-sm font-heebo text-chocolate mb-2">
               Tour Plan
             </label>
-            {tourPlan.map((plan, index) => (
+            {tourPlan?.length > 0 && tourPlan?.map((plan, index) => (
               <div key={index} className="flex gap-4 items-center mb-2">
                 <span className="text-sm text-white font-bold bg-chocolate p-3 rounded-lg">{`Day ${plan.day}`}</span>
                 <textarea
@@ -196,9 +197,9 @@ const AddPackage = () => {
             {
             error && <p className="py-4 text-red-500">{error}</p>
           }
-          {imageURLs.length !== 0 && (
+          {imageURLs?.length > 0 && (
             <div className="mt-4 grid grid-cols-3  gap-2 items-center bg-sand p-2 rounded-md">
-              {imageURLs.map((img) => (
+              {imageURLs?.map((img) => (
                 <div key={img} className="relative">
                 <img
                   src={img}
@@ -216,7 +217,7 @@ const AddPackage = () => {
               ))}
             </div>
           )}
-            <button
+          <button
               type="button"
               onClick={handleUploadImage}
               className="mt-2 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"

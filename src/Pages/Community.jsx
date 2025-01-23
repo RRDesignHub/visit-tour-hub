@@ -67,8 +67,8 @@ export const Community = () => {
 
       {/* Stories Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {stories.map((story) => (
-          <div key={story._id} className="bg-white shadow-lg rounded-lg overflow-hidden">
+        {stories?.length > 0 && stories?.map((story) => (
+          <div key={story._id} className="bg-sand shadow-lg rounded-lg overflow-hidden">
             <img
               src={story.images[0]} // Display the first image
               alt={story.title}
@@ -92,7 +92,7 @@ export const Community = () => {
               </div>
               <div className="flex-grow"></div>
               <Link
-                to={`/community/story/${story._id}`}
+                to={`/story/${story._id}`}
                 className="block px-4 py-2 bg-terracotta text-white text-center rounded-lg hover:bg-chocolate transition"
               >
                 Read More

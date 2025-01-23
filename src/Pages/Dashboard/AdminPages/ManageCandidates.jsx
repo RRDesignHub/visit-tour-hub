@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import Swal from "sweetalert2";
+import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 
 export const ManageCandidates = () => {
+  const axiosSecure = useAxiosSecure()
   const {
     data: candidates = [],
     isLoading: candidateLoading,
@@ -11,8 +13,8 @@ export const ManageCandidates = () => {
   } = useQuery({
     queryKey: ["candidates"],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/guides-applications`
+      const { data } = await axiosSecure.get(
+        `/guides-applications`
       );
       return data;
     },
@@ -31,8 +33,8 @@ export const ManageCandidates = () => {
         confirmButtonText: "Accept!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const { data } = await axios.post(
-            `${import.meta.env.VITE_SERVER_API}/tour-guide/${_id}`,
+          const { data } = await axiosSecure.post(
+            `/tour-guide/accept/${_id}`,
             {
               userId: candidate.userId,
               name: candidate.name,
@@ -72,8 +74,8 @@ export const ManageCandidates = () => {
         confirmButtonText: "Reject!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const { data } = await axios.delete(
-            `${import.meta.env.VITE_SERVER_API}/guides-applications/${_id}`
+          const { data } = await axiosSecure.delete(
+            `/guides-applications/reject/${_id}`
           );
           if (data.deletedCount) {
             Swal.fire({

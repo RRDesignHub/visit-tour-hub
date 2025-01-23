@@ -30,6 +30,11 @@ import { Community } from "../Pages/Community";
 import { AddGuideStory } from "../Pages/Dashboard/TouristGuidePages/AddGuideStory";
 import { ManageGuideStories } from "../Pages/Dashboard/TouristGuidePages/ManageGuideStories";
 import { UpdatePackage } from "../Pages/Dashboard/AdminPages/UpdatePackage";
+import { AddAdminStory } from "../Pages/Dashboard/AdminPages/AddAdminStory";
+import { ManageAdminStories } from "../Pages/Dashboard/AdminPages/ManageAdminStories";
+import { UpdateAdminStory } from "../Pages/Dashboard/AdminPages/UpdateAdminStory";
+import { GuideProfile } from "../Pages/GuideProfile";
+import { StoryDetails } from "../Pages/StoryDetails";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +57,14 @@ const router = createBrowserRouter([
       {
         path: "/all-trips",
         element: <AllTrips></AllTrips>,
+      },
+      {
+        path: "/guide-details/:id",
+        element: <GuideProfile></GuideProfile>,
+      },
+      {
+        path: "/story/:id",
+        element: <StoryDetails></StoryDetails>,
       },
     ],
   },
@@ -222,6 +235,30 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <ManageCandidates></ManageCandidates>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "add-admin-story",
+        element: (
+          <AdminRoute>
+            <AddAdminStory></AddAdminStory>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-admin-stories",
+        element: (
+          <AdminRoute>
+            <ManageAdminStories></ManageAdminStories>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "update-admin-story/:id",
+        element: (
+          <AdminRoute>
+            <UpdateAdminStory></UpdateAdminStory>
           </AdminRoute>
         ),
       },

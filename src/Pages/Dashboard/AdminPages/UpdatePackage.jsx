@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 export const UpdatePackage = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const [userData, userDataLoading] = useUser()
+  const [userData, userDataLoading] = useUser();
   const [tourPlan, setTourPlan] = useState([{ day: 1, description: "" }]);
   const [existingImages, setExistingImages] = useState([]); //existing images after removing
   const [removedImages, setRemovedImages] = useState([]); //removed Images
@@ -33,28 +33,26 @@ export const UpdatePackage = () => {
     },
   });
 
-   useEffect(() =>{
-      setExistingImages(packageDetails.images);
-    },[packageDetails.images])
+  useEffect(() => {
+    setExistingImages(packageDetails.images);
+  }, [packageDetails.images]);
 
-    const handleAddDay = () => {
-      setTourPlan([...tourPlan, { day: tourPlan.length + 1, description: "" }]);
-    };
+  const handleAddDay = () => {
+    setTourPlan([...tourPlan, { day: tourPlan.length + 1, description: "" }]);
+  };
 
-    const handleTourPlanChange = (index, value) => {
-      const updatedPlan = [...tourPlan];
-      updatedPlan[index].description = value;
-      setTourPlan(updatedPlan);
-    };
-
+  const handleTourPlanChange = (index, value) => {
+    const updatedPlan = [...tourPlan];
+    updatedPlan[index].description = value;
+    setTourPlan(updatedPlan);
+  };
 
   // remove image from the image state:
   const handleImageRemove = (imgUrl) => {
     setExistingImages(existingImages.filter((img) => img !== imgUrl));
     setRemovedImages([...removedImages, imgUrl]);
   };
-  
-  
+
   // upload new image:
   const handleNewImageUpload = async (imageFile) => {
     // image file upload to imageBB:
@@ -62,13 +60,13 @@ export const UpdatePackage = () => {
     setNewImages([...newImages, photoURL]);
   };
 
-  
-
-  const handleUpdatePackage = async(e) => {
+  //update package data:
+  const handleUpdatePackage = async (e) => {
     e.preventDefault();
     const form = e.target;
     const packageData = {
       title: form.title.value,
+      isPopular: form.isPopular.value,
       type: form.type.value,
       price: parseFloat(form.price.value),
       duration: form.duration.value,
@@ -77,25 +75,27 @@ export const UpdatePackage = () => {
       location: form.location.value,
       highlights: form.highlights.value.split(","),
       removedImages,
-      newImages
+      newImages,
     };
-
     try {
-          const { data } = await axiosSecure.patch(`/packages/update/${id}`, packageData);
-          if (data.modifiedCount) {
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: `Your story updated successfully!!!`,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            refetch()
-            navigate("/dashboard/added-packages");
-          }
-        } catch (err) {
-          console.log("Package update error-->", err);
-        }
+      const { data } = await axiosSecure.patch(
+        `/package/update/${id}`,
+        packageData
+      );
+      if (data.modifiedCount) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `Your package updated successfully!!!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch();
+        navigate("/dashboard/added-packages");
+      }
+    } catch (err) {
+      console.log("Package update error-->", err);
+    }
   };
 
   if (userDataLoading || packageLoading) {
@@ -110,7 +110,7 @@ export const UpdatePackage = () => {
         <div className="divider my-2"></div>
         <form onSubmit={handleUpdatePackage} className="grid grid-cols-3 gap-4">
           {/* Tour Title */}
-          <div className="mb-4 col-span-3">
+          <div className="mb-4 col-span-2">
             <label className="block text-sm font-heebo text-chocolate mb-2">
               Package Title
             </label>
@@ -123,6 +123,22 @@ export const UpdatePackage = () => {
             />
           </div>
 
+          {/*is Popular*/}
+          <div className="mb-4 col-span-1">
+            <label className="block text-sm font-heebo text-chocolate mb-2">
+              Mark as Popular
+            </label>
+            <select
+              name="isPopular"
+              defaultValue=""
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
+            >
+              <option value="" disabled>Is popular?</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
           {/* Tour Type */}
           {packageDetails?.type && (
             <div className="mb-4 col-span-1">
@@ -131,7 +147,6 @@ export const UpdatePackage = () => {
               </label>
               <select
                 name="type"
-
                 defaultValue={packageDetails.type}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
               >
@@ -208,32 +223,30 @@ export const UpdatePackage = () => {
             </label>
             <input
               type="file"
-              required
               name="imageFile"
               onChange={(e) => handleNewImageUpload(e.target.files[0])}
               accept="image/*"
               className="w-full mb-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
             />
             {error && <p className="py-4 text-red-500">{error}</p>}
-            {
-              newImages?.length !==0 && <div className="mt-4 grid grid-cols-3  gap-2 items-center bg-sand p-2 rounded-md">
-              <p className="text-sm col-span-3">New images:</p>
-              {newImages.map((img) => (
-                <div key={img} className="relative">
-                  <img
-                    src={img}
-                    alt="Packages"
-                    className="w-full h-24 object-cover rounded-lg"
-                  />
-                  
-                </div>
-              ))}
-            </div>
-            }
-            {existingImages?.length !== 0 && (
+            {newImages?.length > 0 && (
+              <div className="mt-4 grid grid-cols-3  gap-2 items-center bg-sand p-2 rounded-md">
+                <p className="text-sm col-span-3">New images:</p>
+                {newImages?.map((img) => (
+                  <div key={img} className="relative">
+                    <img
+                      src={img}
+                      alt="Packages"
+                      className="w-full h-24 object-cover rounded-lg"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+            {existingImages?.length > 0 && (
               <div className="mt-4 grid grid-cols-3  gap-2 items-center bg-sand p-2 rounded-md">
                 <p className="text-sm col-span-3">Existing images:</p>
-                {existingImages.map((img) => (
+                {existingImages?.map((img) => (
                   <div key={img} className="relative">
                     <img
                       src={img}
@@ -251,7 +264,6 @@ export const UpdatePackage = () => {
                 ))}
               </div>
             )}
-            
           </div>
 
           {/* Description */}

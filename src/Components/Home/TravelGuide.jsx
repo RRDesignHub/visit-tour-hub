@@ -14,7 +14,7 @@ const TravelGuide = () => {
     queryKey: ["packages"],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/packages`
+        `${import.meta.env.VITE_SERVER_API}/random-packages`
       );
       return data;
     },
@@ -25,20 +25,11 @@ const TravelGuide = () => {
     queryKey: ["guides"],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER_API}/tour-guide`
+        `${import.meta.env.VITE_SERVER_API}/random-tour-guide`
       );
       return data;
     },
   });
-
-  // const handleCountExperience = async(joined) =>{
-
-  //   const now = new Date();
-  //   const joinedDate = new Date(joined);
-
-  //   const dateDiff = now - joinedDate;
-  //   return Math.floor(dateDiff / (1000 * 60 * 60 * 24 * 365.25));
-  // }
 
   if (guideLoading || packageLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -70,7 +61,7 @@ const TravelGuide = () => {
                     <img
                       src={pkg?.images[0]}
                       alt={pkg?.title}
-                      className="rounded-md mb-4"
+                      className="rounded-md mb-4 h-[195px] w-full object-cover"
                     />
                     <h3 className="text-xl font-nunito font-bold text-chocolate">
                       {pkg?.title}
@@ -90,7 +81,10 @@ const TravelGuide = () => {
 
           {/* Meet Our Tour Guides Tab */}
           <TabPanel>
-            <div key={guides.map(g => g._id)} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div
+              key={guides.map((g) => g._id)}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            >
               {guides.map((guide, index) => (
                 <>
                   <div
@@ -111,12 +105,11 @@ const TravelGuide = () => {
                     <p className="text-sm font-heebo text-neutral">
                       Experience: {guide?.experience} years
                     </p>
-                    <button
-                      onClick={() => navigate(`/guides/${guide.id}`)}
-                      className="mt-4 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate"
-                    >
-                      View Profile
-                    </button>
+                    <Link to={`/guide-details/${guide._id}`}>
+                      <button className="mt-4 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate">
+                        View Profile
+                      </button>
+                    </Link>
                   </div>
                 </>
               ))}
