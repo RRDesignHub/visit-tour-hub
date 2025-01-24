@@ -20,13 +20,15 @@ export const ManageUsers = () => {
   } = useQuery({
     queryKey: ["users", userData?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure(
-        `users/${userData?.email}`);
+      const { data } = await axiosSecure(`users/${userData?.email}`);
       return data;
     },
   });
 
-  const handleUpdateRole = async (_id, role) => {
+  const handleUpdateRole = async (_id, currentRole, role) => {
+    if(currentRole === role){
+      return Swal.fire(`The user is already ${role}`)
+    }
     try {
       Swal.fire({
         title: `Are you want to change the role to ${role}?`,
@@ -35,13 +37,12 @@ export const ManageUsers = () => {
         showCancelButton: true,
         confirmButtonColor: "#3D405B",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Change!"
-      }).then(async(result) => {
+        confirmButtonText: "Yes, Change!",
+      }).then(async (result) => {
         if (result.isConfirmed) {
-          const { data } = await axiosSecure.patch(
-            `/user/role-update/${_id}`,
-            { role }
-          );
+          const { data } = await axiosSecure.patch(`/user/role-update/${_id}`, {
+            role,
+          });
           if (data.message === "Already Tour Guide!!!") {
             return Swal.fire({
               position: "center",
@@ -63,7 +64,6 @@ export const ManageUsers = () => {
           }
         }
       });
-      
     } catch (err) {
       console.log("Role updating error -->", err);
     }
@@ -151,21 +151,20 @@ export const ManageUsers = () => {
                       : ""}
                   </td>
                   <td className="px-4 py-2">
-                    <select
-                      name="type"
-                      onChange={(e) => {
-                        handleUpdateRole(user._id, e.target.value);
-                      }}
-                      defaultValue=""
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
-                    >
-                      <option value="" disabled>
-                        Change Role
-                      </option>
-                      <option value="tourist">Tourist</option>
-                      <option value="tour-guide">Tour Guide</option>
-                      <option value="admin">Admin</option>
-                    </select>
+                    {user?.role && (
+                      <select
+                        name="type"
+                        defaultValue={user.role}
+                        onChange={(e) => {
+                          handleUpdateRole(user._id, user.role, e.target.value);
+                        }}
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
+                      >
+                        <option value="tourist">Tourist</option>
+                        <option value="tour-guide">Tour Guide</option>
+                        <option value="admin">Admin</option>
+                      </select>
+                    )}
                   </td>
                 </tr>
               ))}

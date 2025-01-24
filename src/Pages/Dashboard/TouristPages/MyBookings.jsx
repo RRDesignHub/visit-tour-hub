@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import useUser from "../../../Hooks/useUser";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
-
+import { format } from 'date-fns';
 export const MyBookings = () => {
   const axiosSecure = useAxiosSecure();
   const [userData, userDataLoading] = useUser();
@@ -38,10 +38,10 @@ export const MyBookings = () => {
       confirmButtonText: "Yes, Cancel!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axiosSecure.patch(
+        const { data } = await axiosSecure.delete(
           `/booking/cancel-booking/${id}?packageId=${packageId}&touristId=${touristId}&guideId=${guideId}`
         );
-        if (data.modifiedCount) {
+        if (data.deletedCount) {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -84,22 +84,19 @@ export const MyBookings = () => {
                   <tr key={booking._id} className="border-t">
                     <td className="px-4 py-2">{booking.packageName}</td>
                     <td className="px-4 py-2">
-                      {new Date(booking.tourDate).toLocaleDateString()}
+                      {format(new Date(booking.tourDate), "MMMM dd, yyyy")}
                     </td>
                     <td className="px-4 py-2">{booking.guideName}</td>
                     <td className="px-4 py-2">${booking.price}</td>
                     <td
                       className={`px-4 py-2 ${
-                        booking.status === "confirmed"
-                          ? "text-green-600"
-                          : booking.status === "rejected"
-                          ? "text-red-500"
-                          : booking.status === "cancelled"
-                          ? "text-chocolate"
-                          : booking.status === "pending" ||
-                            booking.status === "accepted"
-                          ? "text-yellow-500"
-                          : "text-orange-500"
+                        booking.status === "pending" || booking.status === "accepted"
+                        ? "text-yellow-500" :
+                        booking.status === "paid"
+                        ? "text-green-600"
+                        : booking.status === "rejected"
+                        ? "text-red-500"
+                        : "text-orange-500"
                       }`}
                     >
                       {booking.status === "pending"
@@ -108,11 +105,11 @@ export const MyBookings = () => {
                         ? "Rejected"
                         : booking.status === "accepted"
                         ? "Accepted"
-                        : booking.status === "confirmed"
-                        ? "Confirmed"
+                        : booking.status === "paid"
+                        ? "Paid"
                         : booking.status === "completed"
                         ? "Completed"
-                        : "Cancelled"}
+                        : ""}
                     </td>
                     <td className="px-4 py-2 text-center space-x-2">
                       {booking.status === "accepted" && (
@@ -133,9 +130,7 @@ export const MyBookings = () => {
                           )
                         }
                         disabled={
-                          booking.status === "confirmed" ||
-                          booking.status === "rejected" ||
-                          booking.status === "cancelled" ||
+                          booking.status === "paid" ||
                           booking.status === "completed"
                         }
                       >

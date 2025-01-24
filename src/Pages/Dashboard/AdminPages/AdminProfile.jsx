@@ -6,23 +6,33 @@ import useUser from "../../../Hooks/useUser";
 import { LoadingSpinner } from "../../../Components/Shared/LoadingSpinner";
 import imageUpload from "../../../Api/Utils";
 import Swal from "sweetalert2";
-
+import { FaSackDollar } from "react-icons/fa6";
+import { TbPackages } from "react-icons/tb";
+import { FaUsersLine } from "react-icons/fa6";
+import { PiUserSwitchFill } from "react-icons/pi";
 export const AdminProfile = () => {
-  const {updateUserProfile} = useAuth()
+  const { updateUserProfile } = useAuth();
   const [userData, userDataLoading] = useUser();
   const axiosSecure = useAxiosSecure();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Dummy data for admin statistics
-  const adminStats = {
-    totalPayments: "$15,000",
-    totalGuides: 25,
-    totalPackages: 40,
-    totalClients: 120,
-    totalStories: 75,
-  };
+  const { data: adminStats = {}, isLoading } = useQuery({
+    queryKey: ["admin-stats"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/admin-stats");
+      return data;
+    },
+  });
 
- 
+  const {
+    totalPayments,
+    totalPackages,
+    totalClients,
+    totalGuides,
+    totalStories,
+  } = adminStats || {};
+
   const handleAdminUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -36,7 +46,7 @@ export const AdminProfile = () => {
         `/admin/update/${userData?.email}`,
         {
           name,
-          image: photoURL
+          image: photoURL,
         }
       );
       if (data.modifiedCount) {
@@ -48,7 +58,7 @@ export const AdminProfile = () => {
           timer: 1500,
         });
         await updateUserProfile(name, photoURL);
-        
+
         refetch();
         setIsEditModalOpen(false);
       }
@@ -57,8 +67,8 @@ export const AdminProfile = () => {
     }
   };
 
-  if(userDataLoading){
-    return <LoadingSpinner></LoadingSpinner>
+  if (userDataLoading || isLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
   }
   return (
     <div className="container mx-auto px-6 lg:px-12 py-12">
@@ -74,20 +84,77 @@ export const AdminProfile = () => {
 
       {/* Statistics Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        {Object.entries(adminStats).map(([key, value]) => (
-          <div
-            key={key}
-            className="bg-white shadow-lg rounded-lg p-6 text-center border-t-4 border-terracotta"
-          >
+        {/* paymets */}
+        <div className="bg-white flex items-center justify-center gap-4 shadow-lg rounded-lg p-6 text-center border-t-4 border-terracotta">
+          <FaSackDollar className="text-6xl text-terracotta" />
+          <div>
             <h2 className="text-2xl font-nunito font-bold text-chocolate">
-              {value}
+              {totalPayments}
             </h2>
             <p className="text-sm font-heebo text-neutral capitalize mt-2">
-              {key.replace("total", "Total")}{" "}
-              {/* Converts keys to readable format */}
+              Total Payments
             </p>
           </div>
-        ))}
+        </div>
+
+        {/* packages */}
+        <div className="bg-white flex items-center justify-center gap-4 shadow-lg rounded-lg p-6 text-center border-t-4 border-terracotta">
+          <TbPackages className="text-6xl text-terracotta" />
+          <div>
+            <h2 className="text-2xl font-nunito font-bold text-chocolate">
+              {totalPackages}
+            </h2>
+            <p className="text-sm font-heebo text-neutral capitalize mt-2">
+              Total Packages
+            </p>
+          </div>
+        </div>
+
+        {/* clients */}
+        <div className="bg-white flex items-center justify-center gap-4 shadow-lg rounded-lg p-6 text-center border-t-4 border-terracotta">
+          <FaUsersLine className="text-6xl text-terracotta" />
+          <div>
+            <h2 className="text-2xl font-nunito font-bold text-chocolate">
+              {totalClients}
+            </h2>
+            <p className="text-sm font-heebo text-neutral capitalize mt-2">
+              Total Clients
+            </p>
+          </div>
+        </div>
+
+        {/* guides */}
+        <div className="bg-white flex items-center justify-center gap-4 shadow-lg rounded-lg p-6 text-center border-t-4 border-terracotta">
+          <PiUserSwitchFill className="text-6xl text-terracotta" />
+          <div>
+            <h2 className="text-2xl font-nunito font-bold text-chocolate">
+              {totalGuides}
+            </h2>
+            <p className="text-sm font-heebo text-neutral capitalize mt-2">
+              Total Guides
+            </p>
+          </div>
+        </div>
+
+
+        {/* stories */}
+        <div className="bg-white flex items-center justify-center gap-4 shadow-lg rounded-lg p-6 text-center border-t-4 border-terracotta">
+          <PiUserSwitchFill className="text-6xl text-terracotta" />
+          <div>
+            <h2 className="text-2xl font-nunito font-bold text-chocolate">
+              {totalStories}
+            </h2>
+            <p className="text-sm font-heebo text-neutral capitalize mt-2">
+              Total Stories
+            </p>
+          </div>
+        </div>
+
+
+
+
+
+        
       </div>
 
       {/* Admin Info Section */}

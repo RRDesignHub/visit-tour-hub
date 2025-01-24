@@ -53,7 +53,9 @@ export const TourGuideProfile = () => {
       const { data } = await axiosSecure.patch(
         `/tour-guide/update/${_id}`,
         {
+          userId: userData._id,
           name,
+          email: userData.email,
           image: photoURL,
           speciality,
           experience,

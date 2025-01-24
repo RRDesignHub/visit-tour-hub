@@ -140,7 +140,6 @@ export const MyAssignedTour = () => {
                       tour.status === "in-review" ? "In review" :
                       tour.status === "accepted" ? "Accepted" :
                       tour.status === "rejected" ? "Rejected" :
-                      tour.status === "cancelled" ? "Cancelled" :
                       tour.status === "completed" ? "Completed" : "Accepted"
                     }
                   </td>

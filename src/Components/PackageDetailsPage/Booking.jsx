@@ -51,6 +51,14 @@ export const Booking = ({ packageData, guides }) => {
       });
     }
 
+    // if user is a tourGuide or Admin prevent the booking:
+    if (userData.role === "tour-guide" || userData.role === "admin") {
+      return Swal.fire({
+        title: "Admin or Guide cannot apply for booking!",
+        icon: "error"
+      })
+    }
+
     const form = e.terget;
     const packageName = title;
     const packageId = _id;
@@ -87,12 +95,12 @@ export const Booking = ({ packageData, guides }) => {
         confirmButtonColor: "#4F4F4F",
         cancelButtonColor: "#E07A5F",
         denyButtonColor: "#4F4F4F",
-        confirmButtonText: "Confirm Booking",
+        confirmButtonText: "Dashboard",
         denyButtonText: `My Bookings`,
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          navigate("/dashboard/confirm-booking");
+          navigate("/dashboard");
         } else if (result.isDenied) {
           navigate("/dashboard/my-bookings");
         }
@@ -108,7 +116,7 @@ export const Booking = ({ packageData, guides }) => {
         confirmButtonColor: "#4F4F4F",
         cancelButtonColor: "#E07A5F",
         denyButtonColor: "#4F4F4F",
-        confirmButtonText: "Confirm Booking",
+        confirmButtonText: "Dashboard",
         denyButtonText: `My Bookings`,
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
