@@ -30,8 +30,8 @@ export const SwipeBanner = ({ packageDetails }) => {
         >
           {images.map((img, inx) => (
             <SwiperSlide key={inx}>
-              <div className="h-[500px] md:h-[450px] lg:h-[450px] w-full ">
-                <img src={img} className="w-full h-full object-contain " />
+              <div className="h-[450px] w-full ">
+                <img src={img} className="w-full h-full object-cover lg:object-contain " />
               </div>
             </SwiperSlide>
           ))}

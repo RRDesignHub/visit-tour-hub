@@ -50,7 +50,7 @@ export const PackageDetails = () => {
   return (
     <>
       {/* slider images */}
-      <div className="mx-auto bg-sand py-5">
+      <div className="mx-auto bg-sand md:py-5">
         <SwipeBanner packageDetails={packageDetails}></SwipeBanner>
       </div>
 

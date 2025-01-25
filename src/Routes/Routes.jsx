@@ -35,6 +35,7 @@ import { ManageAdminStories } from "../Pages/Dashboard/AdminPages/ManageAdminSto
 import { UpdateAdminStory } from "../Pages/Dashboard/AdminPages/UpdateAdminStory";
 import { GuideProfile } from "../Pages/GuideProfile";
 import { StoryDetails } from "../Pages/StoryDetails";
+import { AboutUs } from "../Pages/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/community",
         element: <Community></Community>,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs></AboutUs>,
       },
       {
         path: "/all-trips",

@@ -13,9 +13,9 @@ export const PopularDestination = () => {
   })
 
   return (
-    <section className="py-12 bg-white">
+    <section className="py-6 md:py-10 lg:py-12 bg-white">
       <div className="container mx-auto px-6 lg:px-12">
-        <h2 className="text-4xl font-nunito font-bold text-chocolate text-center mb-8">
+        <h2 className="text-2xl max-sm:mb-5 md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center mb-8">
           Popular Destinations
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -33,7 +33,7 @@ export const PopularDestination = () => {
                 <h3 className="text-xl font-nunito font-bold text-chocolate mb-2">
                   {destination.title}
                 </h3>
-                <p className="text-sm font-heebo text-neutral mb-4">
+                <p className="text-sm font-heebo max-sm:text-justify text-neutral mb-4">
                   {destination.description}
                 </p>
                 <Link

@@ -5,9 +5,9 @@ import Container from "./Container";
 const Footer = () => {
   return (
     <>
-      <footer className="bg-chocolate text-sand py-10">
+      <footer className="bg-chocolate text-sand py-6 md:py-10">
         <Container>
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 justify-center gap-8">
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 justify-center gap-6 md:gap-8">
             {/* Logo and Description */}
             <div className="flex flex-col items-start">
               <NavLink to="/" className="flex items-center">
@@ -51,7 +51,7 @@ const Footer = () => {
             </div>
 
             {/* Quick Links */}
-            <div className="mx-auto">
+            <div className=" md:mx-auto">
               <h3 className="text-xl font-nunito font-bold mb-4">
                 Quick Links
               </h3>
@@ -92,7 +92,7 @@ const Footer = () => {
             </div>
 
             {/* Contact Info */}
-            <div className="ms-auto">
+            <div className="md:ms-auto">
               <h3 className="text-xl font-nunito font-bold mb-4">Contact Us</h3>
               <p className="font-heebo">
                 Email:{" "}
@@ -107,7 +107,7 @@ const Footer = () => {
               <p className="font-heebo">Address: Dhaka, Bangladesh</p>
             </div>
           </div>
-          <div className="text-center mt-10 font-heebo text-primary">
+          <div className="text-center max-sm:text-xs mt-5 md:mt-10 font-heebo text-primary">
             © {new Date().getFullYear()} TourHub. All rights reserved.
           </div>
         </Container>

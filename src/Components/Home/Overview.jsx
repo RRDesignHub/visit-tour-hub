@@ -4,17 +4,17 @@ import icon_2 from "../../assets/journey.png";
 import icon_3 from "../../assets/guide.png";
 const Overview = () => {
   return (
-    <section className="bg-sand py-16">
-      <div className="container mx-auto px-6 lg:px-12">
-        <h2 className="text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center">
+    <section className="bg-sand py-6 md:py-10 lg:py-16">
+      <div className="container mx-auto px-3 md:px-6 lg:px-12">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center">
           Why Choose TourHub?
         </h2>
-        <p className="text-lg font-heebo text-neutral text-center mt-4 max-w-3xl mx-auto">
+        <p className="text-base md:text-lg font-heebo text-neutral text-center mt-2 md:mt-4 max-w-3xl mx-auto">
           TourHub connects you to the best travel experiences in Bangladesh.
           With detailed guides, curated packages, and authentic local insights,
           we ensure every journey is unforgettable.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-5 md:mt-12">
           {/* Card 1 */}
           <div className="flex flex-col items-center text-center bg-white shadow-md rounded-lg p-6">
             <img

@@ -36,9 +36,9 @@ const TravelGuide = () => {
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-6 md:py-10 lg:py-16 bg-white">
       <div>
-        <h2 className="text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center">
+        <h2 className="text-2xl max-sm:mb-5 md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center">
           Tourism and Travel Guide
         </h2>
       </div>

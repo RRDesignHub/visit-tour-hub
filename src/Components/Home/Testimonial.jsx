@@ -25,9 +25,9 @@ export const Testimonial = () => {
   ];
 
   return (
-    <section className="py-12 bg-sand">
+    <section className="py-6 md:py-10 lg:py-12 bg-sand">
       <div className="container mx-auto px-6 lg:px-12">
-        <h2 className="text-4xl font-nunito font-bold text-chocolate text-center mb-8">
+        <h2 className="text-2xl max-sm:mb-5 md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center mb-8">
           What Our Tourists Say
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

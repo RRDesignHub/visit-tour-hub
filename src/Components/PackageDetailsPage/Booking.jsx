@@ -3,27 +3,28 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { CgProfile } from "react-icons/cg";
 import { LoadingSpinner } from "../Shared/LoadingSpinner";
 import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 export const Booking = ({ packageData, guides }) => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [tourDate, setTourDate] = useState(new Date());
   const [selectedGuide, setSelectedGuide] = useState({});
   const navigate = useNavigate();
- 
-  const {data: userData= {}, isloading} = useQuery({
+
+  const { data: userData = {}, isloading } = useQuery({
     queryKey: ["user", user?.email],
-    queryFn: async() =>{
-      const {data} = await axios.get(`${import.meta.env.VITE_SERVER_API}/guest-user/${user?.email}`);
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_SERVER_API}/guest-user/${user?.email}`
+      );
       return data;
-    }
-  })
-  
+    },
+  });
 
   // distructure package data:
   const { _id, title } = packageData || {};
@@ -55,8 +56,8 @@ export const Booking = ({ packageData, guides }) => {
     if (userData.role === "tour-guide" || userData.role === "admin") {
       return Swal.fire({
         title: "Admin or Guide cannot apply for booking!",
-        icon: "error"
-      })
+        icon: "error",
+      });
     }
 
     const form = e.terget;
@@ -70,21 +71,18 @@ export const Booking = ({ packageData, guides }) => {
     const guideName = selectedGuide.guideName;
     const guideId = selectedGuide.guideId;
 
-    const { data } = await axiosSecure.post(
-      `/bookings/${packageId}`,
-      {
-        packageName,
-        packageId,
-        touristName,
-        touristEmail,
-        touristImage,
-        touristId,
-        price,
-        tourDate,
-        guideName,
-        guideId
-      }
-    );
+    const { data } = await axiosSecure.post(`/bookings/${packageId}`, {
+      packageName,
+      packageId,
+      touristName,
+      touristEmail,
+      touristImage,
+      touristId,
+      price,
+      tourDate,
+      guideName,
+      guideId,
+    });
 
     // check if already booked:
     if (data.message === "Already booked!!!") {
@@ -136,15 +134,15 @@ export const Booking = ({ packageData, guides }) => {
     <>
       {/* Booking Form Section */}
       <section>
-        <h2 className="text-4xl text-center font-nunito font-bold text-chocolate mb-2">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl  text-center font-nunito font-bold text-chocolate mb-2">
           Book This Tour
         </h2>
         <div className="divider my-0"></div>
         <form
           onSubmit={handleBooking}
-          className="space-y-4 bg-sand p-6 rounded-lg shadow-md"
+          className="space-y-6 bg-sand p-4 md:p-6 rounded-lg shadow-md  mx-auto"
         >
-          {/* profile */}
+          {/* Profile */}
           <div className="mx-auto flex flex-col justify-center items-center">
             <label className="block text-sm font-heebo text-chocolate mb-2">
               Your Photo
@@ -162,7 +160,7 @@ export const Booking = ({ packageData, guides }) => {
           </div>
 
           {/* Tourist Info */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 sm:gap-6">
             {/* Package Name */}
             <div>
               <label className="block text-sm font-heebo text-chocolate mb-2">
@@ -176,7 +174,7 @@ export const Booking = ({ packageData, guides }) => {
               />
             </div>
 
-            {/* your name */}
+            {/* Your Name */}
             <div>
               <label className="block text-sm font-heebo text-chocolate mb-2">
                 Your Name
@@ -189,7 +187,7 @@ export const Booking = ({ packageData, guides }) => {
               />
             </div>
 
-            {/* your email */}
+            {/* Your Email */}
             <div>
               <label className="block text-sm font-heebo text-chocolate mb-2">
                 Your Email
@@ -259,11 +257,13 @@ export const Booking = ({ packageData, guides }) => {
                 </select>
               </div>
             )}
+          </div>
 
-            {/* Book Now Button */}
+          {/* Book Now Button */}
+          <div className="flex justify-center mt-4">
             <button
               type="submit"
-              className="col-span-3 w-fit ms-auto px-6 py-3 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
+              className="px-6 py-3 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
             >
               Book Now
             </button>

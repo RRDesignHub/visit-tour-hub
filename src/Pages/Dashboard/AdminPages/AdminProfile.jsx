@@ -150,10 +150,6 @@ export const AdminProfile = () => {
           </div>
         </div>
 
-
-
-
-
         
       </div>
 

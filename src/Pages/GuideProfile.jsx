@@ -47,7 +47,7 @@ export const GuideProfile = () => {
             <p className="text-md font-heebo text-neutral">
               <strong>Experience:</strong> {guideData.experience} years
             </p>
-            <p className="text-md font-heebo text-neutral italic">
+            <p className="text-base md:text-md font-heebo text-neutral italic">
               "{guideData.reason}"
             </p>
           </div>
@@ -55,8 +55,8 @@ export const GuideProfile = () => {
       </div>
 
       {/* Portfolio Section */}
-      <div className="bg-white shadow-lg p-6 rounded-lg border border-sand">
-        <h2 className="text-2xl font-nunito font-bold text-chocolate mb-2">
+      <div className="bg-white md:shadow-lg md:p-6 rounded-lg md:border border-sand">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl text-center font-nunito font-bold text-chocolate mb-2">
           Tours Led by <span className="text-terracotta">{guideData.name}</span>
         </h2>
         <div className="divider my-0 mb-2"></div>

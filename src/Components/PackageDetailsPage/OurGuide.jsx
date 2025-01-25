@@ -4,7 +4,7 @@ export const OurGuide = ({ guides }) => {
   return (
     <>
       <section className="mb-12">
-        <h2 className="text-4xl text-center font-nunito font-bold text-chocolate mb-2">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl  text-center font-nunito font-bold text-chocolate mb-2">
           Meet Our Tour Guides
         </h2>
         <div className="divider my-0"></div>
