@@ -77,13 +77,13 @@ export const UpdateGuideStory = () => {
     return <LoadingSpinner></LoadingSpinner>;
   }
   return (
-    <div className="container mx-auto px-6 lg:px-12 py-12">
-      <h1 className="text-3xl font-nunito font-bold text-chocolate mb-6 text-center">
+    <div className="container mx-auto p-3 lg:px-12 lg:py-12">
+      <h1 className="text-2xl md:text-3xl font-nunito font-bold text-chocolate mb-6 text-center">
         Update Story
       </h1>
       <form
         onSubmit={handleUpdateStory}
-        className="bg-white shadow-lg p-6 rounded-lg max-w-2xl mx-auto"
+        className="bg-white shadow-lg p-3 lg:p-6 rounded-lg max-w-2xl mx-auto"
       >
         {/* Title */}
         <div className="mb-6">
@@ -118,7 +118,7 @@ export const UpdateGuideStory = () => {
           <label className="block text-sm font-heebo text-chocolate mb-2">
             Existing Images
           </label>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid  max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {existingImages?.map((img) => (
               <div key={img} className="relative">
                 <img
@@ -150,7 +150,7 @@ export const UpdateGuideStory = () => {
             className="block w-full text-sm text-gray-500"
           />
           {newImages.length !== 0 && (
-            <div className="mt-4 grid grid-cols-3 gap-2 items-center bg-sand p-2 rounded-md">
+            <div className="mt-4 grid max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 items-center bg-sand p-2 rounded-md">
               {newImages.map((img, i) => (
                 <img
                   src={img}

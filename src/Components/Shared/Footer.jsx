@@ -5,7 +5,7 @@ import Container from "./Container";
 const Footer = () => {
   return (
     <>
-      <footer className="bg-chocolate text-sand py-6 md:py-10">
+      <footer className="bg-chocolate text-sand py-3 md:py-10">
         <Container>
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 justify-center gap-6 md:gap-8">
             {/* Logo and Description */}
@@ -49,16 +49,24 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-
+            <div className="md:hidden divider my-0 h-[2px] bg-[#f4f1de99]"></div>
             {/* Quick Links */}
             <div className=" md:mx-auto">
               <h3 className="text-xl font-nunito font-bold mb-4">
                 Quick Links
               </h3>
               <ul className="space-y-2 font-heebo">
+              <li>
+                  <NavLink
+                    to="/"
+                    className="hover:text-terracotta transition"
+                  >
+                    Home
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
-                    to="/about"
+                    to="/about-us"
                     className="hover:text-terracotta transition"
                   >
                     About Us
@@ -66,7 +74,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/trips"
+                    to="/all-trips"
                     className="hover:text-terracotta transition"
                   >
                     Trips
@@ -80,17 +88,10 @@ const Footer = () => {
                     Community
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="/contact"
-                    className="hover:text-terracotta transition"
-                  >
-                    Contact Us
-                  </NavLink>
-                </li>
+                
               </ul>
             </div>
-
+      <div className="md:hidden divider my-0 h-[2px] bg-[#f4f1de99]"></div>
             {/* Contact Info */}
             <div className="md:ms-auto">
               <h3 className="text-xl font-nunito font-bold mb-4">Contact Us</h3>

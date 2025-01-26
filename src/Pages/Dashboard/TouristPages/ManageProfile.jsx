@@ -61,15 +61,15 @@ export const ManageProfile = () => {
     return <LoadingSpinner></LoadingSpinner>
   }
   return (
-    <div className="container mx-auto px-6 lg:px-6 py-12">
+    <div className="container mx-auto p-3 lg:px-6 lg:py-12">
       {/* Tourist Information */}
-      <section className="bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
+      <section className="bg-white p-3 md:p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
         <div className="flex flex-col justify-center items-center gap-6">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-nunito font-bold text-chocolate">
+          <div className="text-center mb-4 lg:mb-8">
+            <h1 className="text-2xl md:text-3xl font-nunito font-bold text-chocolate">
               Welcome, <span className="text-terracotta">{tourist?.name}!</span>
             </h1>
-            <p className="text-lg font-heebo text-neutral mt-2">
+            <p className="text-base lg:text-lg font-heebo text-neutral mt-2">
               Manage your profile and explore your journey with TourHub.
             </p>
           </div>
@@ -91,15 +91,15 @@ export const ManageProfile = () => {
             </p>
           </div>
         </div>
-        <div className="flex justify-between mt-6">
+        <div className="flex  justify-between mt-6">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
+            className="btn bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
           >
             Edit Profile
           </button>
           <Link to="/dashboard/join-as-guide">
-            <button className="px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate transition">
+            <button className="btn bg-terracotta text-white rounded-lg hover:bg-chocolate transition">
               Apply for Tour Guide
             </button>
           </Link>

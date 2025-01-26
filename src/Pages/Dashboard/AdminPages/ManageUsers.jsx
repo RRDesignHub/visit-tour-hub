@@ -9,7 +9,7 @@ import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 export const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
   const [userData, userDataLoading] = useUser();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
 
   // get all user accept the logged in user data from db:
@@ -18,16 +18,18 @@ export const ManageUsers = () => {
     isLoading: userLoading,
     refetch,
   } = useQuery({
-    queryKey: ["users", userData?.email],
+    queryKey: ["users", userData?.email, search, roleFilter],
     queryFn: async () => {
-      const { data } = await axiosSecure(`users/${userData?.email}`);
+      const { data } = await axiosSecure(
+        `users/${userData?.email}?search=${search}&filter=${roleFilter}`
+      );
       return data;
     },
   });
 
   const handleUpdateRole = async (_id, currentRole, role) => {
-    if(currentRole === role){
-      return Swal.fire(`The user is already ${role}`)
+    if (currentRole === role) {
+      return Swal.fire(`The user is already ${role}`);
     }
     try {
       Swal.fire({
@@ -69,6 +71,13 @@ export const ManageUsers = () => {
     }
   };
 
+  const handleSearch = e=>{
+    e.preventDefault();
+    const data= e.target.search.value;
+    setSearch(data);
+  }
+
+
   if (userLoading || userDataLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
@@ -76,25 +85,31 @@ export const ManageUsers = () => {
     <>
       <div className="min-h-screen bg-sand p-6">
         <div className="container mx-auto bg-white shadow-lg rounded-xl p-8">
-          <h2 className="text-4xl text-center font-nunito font-bold text-chocolate mb-2">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl text-center font-nunito font-bold text-chocolate mb-2">
             Manage Users
           </h2>
           <div className="divider mt-0"></div>
           {/* Search and Filter */}
-          <div className="flex flex-col md:flex-row gap-4 mb-6">
+          <div className="flex items-center gap-4 mb-6">
             {/* Search */}
-            <div className="w-1/2">
-              <label className="block  text-sm font-heebo text-chocolate mb-2">
-                Search by Name or Email
-              </label>
-              <input
-                type="text"
-                placeholder="Search by name or email"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
-              />
-            </div>
+            <form className="w-1/2" onSubmit={handleSearch}>
+            
+              <div className="flex p-1 overflow-hidden rounded-lg ">
+                
+                <input
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
+                  type="text"
+                  name="search"
+                  defaultValue={search}
+                  placeholder="Search by name"
+                  aria-label="Search by name"
+                />
+
+                <button type="submit" className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">
+                  Search
+                </button>
+              </div>
+            </form>
 
             {/* Filter */}
             <div className="w-1/2">
@@ -104,7 +119,8 @@ export const ManageUsers = () => {
               <select
                 name="type"
                 required
-                defaultValue=""
+                defaultValue={roleFilter}
+                onChange={e => setRoleFilter(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-terracotta"
               >
                 <option value="">All Roles</option>

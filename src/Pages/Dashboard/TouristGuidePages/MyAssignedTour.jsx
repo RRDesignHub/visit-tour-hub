@@ -99,7 +99,7 @@ export const MyAssignedTour = () => {
   };
   return (
     <div className="container mx-auto px-6 lg:px-12 py-12">
-      <h1 className="text-3xl text-center font-bold text-chocolate mb-6">
+      <h1 className="text-2xl md:text-3xl text-center font-bold text-chocolate mb-6">
         My Assigned Tours
       </h1>
       <div className="overflow-x-auto bg-white p-6 rounded-lg">
@@ -143,16 +143,16 @@ export const MyAssignedTour = () => {
                       tour.status === "completed" ? "Completed" : "Accepted"
                     }
                   </td>
-                  <td className="px-4 py-2 text-center">
+                  <td className="px-4 py-2 text-center max-sm:space-y-1">
                     <button
-                      className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                      className="btn-sm disabled:bg-gray-400 md:btn bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
                       onClick={() => handleAccept(tour._id, tour.packageId, tour.touristId, tour.guideId)}
                       disabled={tour.status !== "in-review" || tour.status === "accepted"}
                     >
                       Accept
                     </button>
                     <button
-                      className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition ml-2"
+                      className="btn-sm disabled:bg-gray-400 md:btn bg-red-500 text-white rounded-lg hover:bg-red-600 transition ml-2"
                       onClick={() => handleReject(tour._id, tour.packageId, tour.touristId, tour.guideId)}
                       disabled={tour.status === "rejected" || tour.status === "accepted" || tour.status === "cancelled"}
                     >

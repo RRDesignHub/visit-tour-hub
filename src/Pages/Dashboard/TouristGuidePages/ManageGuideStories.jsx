@@ -55,8 +55,8 @@ export const ManageGuideStories = () => {
     return <LoadingSpinner></LoadingSpinner>;
   }
   return (
-    <div className="container mx-auto px-6 lg:px-12 py-12">
-      <h1 className="text-3xl font-nunito font-bold text-chocolate mb-2 text-center">
+    <div className="container mx-auto p-3 lg:px-12 lg:py-12">
+      <h1 className="text-2xl md:text-3xl font-nunito font-bold text-chocolate mb-2 text-center">
         Manage Your Stories
       </h1>
       <div className="divider my-0"></div>

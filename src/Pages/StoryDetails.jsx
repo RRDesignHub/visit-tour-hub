@@ -36,7 +36,7 @@ export const StoryDetails = () => {
             className="w-12 h-12 rounded-full border-2 border-chocolate"
           />
           <div>
-            <h1 className="text-2xl font-nunito font-bold text-chocolate">
+            <h1 className="text-xl md:text-2xl font-nunito font-bold text-chocolate">
               {story.title}
             </h1>
             <p className="text-sm font-heebo text-neutral">
@@ -44,14 +44,15 @@ export const StoryDetails = () => {
             </p>
           </div>
         </div>
-        <p className="text-lg font-heebo text-neutral">{story?.description}</p>
+        <p className="text-base lg:text-lg font-heebo text-neutral">{story?.description}</p>
       </div>
 
       {/* Gallery Section */}
-      <div className="bg-white shadow-lg p-6 rounded-lg border border-sand">
-        <h2 className="text-2xl font-nunito font-bold text-chocolate mb-6">
+      <div className="bg-white shadow-lg md:p-6 rounded-lg md:border border-sand">
+        <h2 className="text-2xl max-sm:text-center font-nunito font-bold text-chocolate mb-6">
           Gallery
         </h2>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {story?.images && story?.images.map((image, index) => (
             <div key={index} className="overflow-hidden rounded-lg shadow-lg">

@@ -1,4 +1,4 @@
-
+import { motion } from "motion/react";
 export const Testimonial = () => {
   const testimonials = [
     {
@@ -30,7 +30,12 @@ export const Testimonial = () => {
         <h2 className="text-2xl max-sm:mb-5 md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center mb-8">
           What Our Tourists Say
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true }} 
+          transition={{ duration: 0.3 }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
@@ -50,7 +55,7 @@ export const Testimonial = () => {
               </h3>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
 

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { LoadingSpinner } from "../Components/Shared/LoadingSpinner";
 import { Link } from "react-router-dom";
-
+import { motion } from "motion/react";
 export const AllTrips = () => {
   const {data : packages = [], isLoading} = useQuery({
     queryKey: ["packages"],
@@ -20,7 +20,12 @@ export const AllTrips = () => {
   return (
     
     <>
-      <div className="container mx-auto px-6 lg:px-12 py-12">
+      <motion.div
+        initial={{ x: 300, opacity: 0 }} 
+        animate={{ x: 0, opacity: 1 }} 
+        exit={{ x: -300, opacity: 0 }} 
+        transition={{ duration: 0.5 }}
+      className="container mx-auto px-6 lg:px-12 py-12">
         <h1 className="text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center">
           All Trips
         </h1>
@@ -57,7 +62,7 @@ export const AllTrips = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

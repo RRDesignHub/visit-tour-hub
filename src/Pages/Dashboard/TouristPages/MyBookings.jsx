@@ -56,13 +56,13 @@ export const MyBookings = () => {
   };
   return (
     <>
-      <div className="container  mx-auto px-6 lg:px-12 py-12">
-        <h1 className="text-3xl text-center font-nunito font-bold text-chocolate mb-6">
+      <div className="container  mx-auto p-3 lg:px-12 lg:py-12">
+        <h1 className="text-2xl md:text-3xl text-center font-nunito font-bold text-chocolate mb-6">
           My Bookings
         </h1>
         <div className="overflow-x-auto bg-white p-4 rounded-lg">
           {bookings.length === 0 ? (
-            <div className="container mx-auto px-6 lg:px-12 py-12">
+            <div className="container mx-auto p-3 lg:px-12 lg:py-12">
               <p className="text-center text-chocolate font-nunito text-xl">
                 You have no bookings yet.
               </p>
@@ -114,13 +114,13 @@ export const MyBookings = () => {
                     <td className="px-4 py-2 text-center space-x-2">
                       {booking.status === "accepted" && (
                         <Link to={`/dashboard/payment/${booking._id}`}>
-                          <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                          <button className="btn-sm md:btn bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
                             Pay
                           </button>
                         </Link>
                       )}
                       <button
-                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                        className="btn-sm disabled:bg-gray-400 md:btn bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
                         onClick={() =>
                           handleCancelBooking(
                             booking._id,

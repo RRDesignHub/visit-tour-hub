@@ -74,10 +74,10 @@ export const AdminProfile = () => {
     <div className="container mx-auto px-6 lg:px-12 py-12">
       {/* Welcome Message */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-nunito font-bold text-chocolate">
+        <h1 className="text-2xl md:text-3xl font-nunito font-bold text-chocolate">
           Welcome, <span className="text-terracotta">{userData.name}</span>!
         </h1>
-        <p className="text-lg font-heebo text-neutral mt-2">
+        <p className="text-base lg:text-lg font-heebo text-neutral mt-2">
           Manage your profile and track the platform's performance.
         </p>
       </div>

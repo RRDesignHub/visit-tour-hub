@@ -63,10 +63,11 @@ export const JoinAsGuide = () => {
   }
   return (
     <>
-      <div className="mt-8 container mx-auto max-w-lg bg-white shadow-lg rounded-lg p-8">
-        <h2 className="text-2xl font-nunito font-bold text-chocolate mb-6 text-center">
+      <div className="lg:mt-8 container mx-auto max-w-lg bg-white shadow-lg rounded-lg p-3 lg:p-8">
+        <h2 className="text-2xl font-nunito font-bold text-chocolate mb-2 text-center">
           Join as a Tour Guide
         </h2>
+        <div className="divider my-0"></div>
         <form onSubmit={handleJoinAsGuide} className="space-y-6">
           {/* Application Title */}
           <div className="mb-4 col-span-1">
@@ -127,10 +128,10 @@ export const JoinAsGuide = () => {
 
           {/* Submit Button */}
           <div className="flex justify-between items-center">
-            <Link to='/dashboard/tourist-profile' className="w-fit px-6 py-3 bg-terracotta text-white rounded-lg hover:bg-chocolate transition">My Profile</Link>
+            <Link to='/dashboard/tourist-profile' className="w-fit btn bg-terracotta text-white rounded-lg hover:bg-chocolate transition">My Profile</Link>
             <button
               type="submit"
-              className="w-fit px-6 py-3 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
+              className="w-fit btn bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
             >
               Submit Application
             </button>

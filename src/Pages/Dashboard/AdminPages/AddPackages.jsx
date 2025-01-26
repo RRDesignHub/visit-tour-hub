@@ -80,9 +80,9 @@ const AddPackage = () => {
   };
 
   return (
-    <section className="min-h-screen p-6">
-      <div className="container mx-auto max-w-4xl bg-white shadow-lg rounded-lg p-8">
-        <h2 className="text-3xl text-center  font-nunito font-bold text-chocolate">
+    <section className="min-h-screen p-3 lg:p-6">
+      <div className="container mx-auto max-w-4xl bg-white shadow-lg rounded-lg p-4 lg:p-8">
+        <h2 className="text-2xl md:text-3xl text-center  font-nunito font-bold text-chocolate">
           Add a New Package
         </h2>
         <div className="divider my-2"></div>
@@ -103,7 +103,7 @@ const AddPackage = () => {
 
 
           {/* Tour Type */}
-          <div className="mb-4 col-span-1">
+          <div className="mb-4 col-span-3 md:col-span-1">
             <label className="block  text-sm font-heebo text-chocolate mb-2">
               Tour Type
             </label>
@@ -124,7 +124,7 @@ const AddPackage = () => {
           </div>
 
           {/* Price */}
-          <div className="mb-4 col-span-1">
+          <div className="mb-4 col-span-3 md:col-span-1">
             <label className="block text-sm font-heebo text-chocolate mb-2">
               Price (USD)
             </label>
@@ -138,7 +138,7 @@ const AddPackage = () => {
           </div>
 
           {/*tour Duration */}
-          <div className="mb-4 col-span-1">
+          <div className="mb-4 col-span-3 md:col-span-1">
             <label className="block text-sm font-heebo text-chocolate mb-2">
               Duration
             </label>
@@ -241,7 +241,7 @@ const AddPackage = () => {
           </div>
 
           {/* Location */}
-          <div className="mb-4 col-span-1">
+          <div className="mb-4 col-span-3 md:col-span-1">
             <label className="block text-sm font-heebo text-chocolate mb-2">
               Location
             </label>
@@ -255,7 +255,7 @@ const AddPackage = () => {
           </div>
 
           {/* Highlights */}
-          <div className="mb-6 col-span-2">
+          <div className="mb-6 col-span-3 md:col-span-2">
             <label className="block text-sm font-heebo text-chocolate mb-2">
               Highlights (Comma Separated)
             </label>

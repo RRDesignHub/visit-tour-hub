@@ -85,16 +85,16 @@ export const TourGuideProfile = () => {
   }
   return (
     <>
-      <div className="container mx-auto px-6 lg:px-12 py-12">
+      <div className="container mx-auto p-3 lg:px-12 lg:py-12">
         {/* Guide Information */}
-        <section className="bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
+        <section className="bg-white p-3 md:p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
           <div className="flex flex-col justify-center items-center gap-2">
             {/* Welcome Section */}
             <div className="text-center ">
-              <h1 className="text-3xl font-nunito font-bold text-chocolate">
+              <h1 className="text-2xl md:text-3xl font-nunito font-bold text-chocolate">
                 Welcome, <span className="text-terracotta">{name}!</span>
               </h1>
-              <p className="text-lg font-heebo text-neutral ">
+              <p className="text-base lg:text-lg font-heebo text-neutral ">
                 Manage your profile and continue guiding with TourHub.
               </p>
             </div>
@@ -104,11 +104,11 @@ export const TourGuideProfile = () => {
             <img
               src={image}
               alt={name}
-              className="w-32 h-32 rounded-full border-2 border-chocolate"
+              className="w-24 md:w-32 h-24 md:h-32 rounded-full border-2 border-chocolate"
             />
 
             {/* Personal Info */}
-            <div className="text-center">
+            <div className="text-center mb-5">
               <h2 className="text-xl md:text-3xl font-nunito font-bold text-chocolate">
                 {name}
               </h2>
@@ -121,17 +121,17 @@ export const TourGuideProfile = () => {
             </div>
 
             {/* Professional Info */}
-            <div className="w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 md:gap-x-20 gap-y-3">
-              <div className="flex items-center  gap-2">
-                <p className="text-lg font-nunito font-bold text-chocolate ">
+            <div className="lg:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 md:gap-x-20 gap-y-3">
+              <div className="flex flex-col md:flex-row items-center  md:gap-2">
+                <p className="text-base md:text-lg font-nunito font-bold text-chocolate ">
                   Speciality:
                 </p>
                 <p className="text-sm md:text-base font-heebo text-neutral ">
                   {speciality || "Not specified"}
                 </p>
               </div>
-              <div className="flex items-center gap-2">
-                <p className="text-lg font-nunito font-bold text-chocolate">
+              <div className="flex flex-col md:flex-row items-center md:gap-2">
+                <p className="text-base md:text-lg font-nunito font-bold text-chocolate">
                   Experience:
                 </p>
                 <p className="text-sm md:text-base font-heebo text-neutral">
@@ -140,7 +140,7 @@ export const TourGuideProfile = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <p className="text-lg font-nunito font-bold text-chocolate">
+                <p className="ttext-base md:ext-lg font-nunito font-bold text-chocolate">
                   CV:
                 </p>
                 <a
@@ -154,7 +154,7 @@ export const TourGuideProfile = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <p className="text-lg font-nunito font-bold text-chocolate">
+                <p className="text-base md:text-lg font-nunito font-bold text-chocolate">
                   Joined On:
                 </p>
                 <p className="text-sm md:text-base font-heebo text-neutral">
@@ -162,7 +162,7 @@ export const TourGuideProfile = () => {
                 </p>
               </div>
               <div className="col-span-2">
-                <p className="text-lg font-nunito font-bold text-chocolate ">
+                <p className="text-base md:text-lg font-nunito font-bold text-chocolate ">
                   Reason for Joining:
                 </p>
                 <p className="text-sm md:text-base font-heebo text-neutral ">

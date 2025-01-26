@@ -5,7 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+import { motion } from "motion/react";
 const TravelGuide = () => {
   const navigate = useNavigate();
 
@@ -51,7 +51,12 @@ const TravelGuide = () => {
 
           {/* Our Packages Tab */}
           <TabPanel>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <motion.div 
+            initial={{ opacity: 0, y: 50 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {packages &&
                 packages?.map((pkg) => (
                   <div
@@ -76,44 +81,45 @@ const TravelGuide = () => {
                     </button>
                   </div>
                 ))}
-            </div>
+            </motion.div>
           </TabPanel>
 
           {/* Meet Our Tour Guides Tab */}
           <TabPanel>
-            <div
-              key={guides.map((g) => g._id)}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
               className="grid grid-cols-1 md:grid-cols-3 gap-6"
             >
-              {guides.map((guide, index) => (
-                <>
-                  <div
-                    key={guide._id}
-                    className="p-4 bg-sand shadow-md rounded-lg text-center"
-                  >
-                    <img
-                      src={guide.image}
-                      alt={guide.name}
-                      className="w-24 h-24 mx-auto rounded-full mb-4 border-2 border-chocolate"
-                    />
-                    <h3 className="text-xl font-nunito font-bold text-chocolate">
-                      {guide.name}
-                    </h3>
-                    <p className="text-sm font-heebo text-neutral">
-                      {guide?.speciality || "General Tours"}
-                    </p>
-                    <p className="text-sm font-heebo text-neutral">
-                      Experience: {guide?.experience} years
-                    </p>
-                    <Link to={`/guide-details/${guide._id}`}>
-                      <button className="mt-4 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate">
-                        View Profile
-                      </button>
-                    </Link>
-                  </div>
-                </>
+              {guides.map((guide) => (
+                <div
+                  key={guide._id}
+                  className="p-4 bg-sand shadow-md rounded-lg text-center"
+                >
+                  <img
+                    src={guide.image}
+                    alt={guide.name}
+                    className="w-24 h-24 mx-auto rounded-full mb-4 border-2 border-chocolate"
+                  />
+                  <h3 className="text-xl font-nunito font-bold text-chocolate">
+                    {guide.name}
+                  </h3>
+                  <p className="text-sm font-heebo text-neutral">
+                    {guide?.speciality || "General Tours"}
+                  </p>
+                  <p className="text-sm font-heebo text-neutral">
+                    Experience: {guide?.experience} years
+                  </p>
+                  <Link to={`/guide-details/${guide._id}`}>
+                    <button className="mt-4 px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate">
+                      View Profile
+                    </button>
+                  </Link>
+                </div>
               ))}
-            </div>
+            </motion.div>
           </TabPanel>
         </Tabs>
       </div>

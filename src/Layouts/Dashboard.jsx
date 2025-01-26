@@ -41,7 +41,7 @@ const Dashboard = () => {
       {/* Sidebar */}
       <aside
         className={` ${
-          openCloseMenu ? "max-sm:w-72" : "max-sm:w-10"
+          openCloseMenu ? "max-sm:w-[270px]" : "max-sm:w-10"
         } transform ease-in-out duration-700 md:w-64 relative bg-chocolate text-sand shadow-lg`}
       >
         <div className="md:hidden py-3 text-center">

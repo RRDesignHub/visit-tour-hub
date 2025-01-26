@@ -57,13 +57,13 @@ export const AddAdminStory = () => {
     return <LoadingSpinner></LoadingSpinner>
   }
   return (
-    <div className="container mx-auto px-6 lg:px-12 py-12">
-      <h1 className="text-3xl font-nunito font-bold text-chocolate mb-6 text-center">
+    <div className="container mx-auto px-3 lg:px-12 py-4 md:py-12">
+      <h1 className="text-2xl md:text-3xl font-nunito font-bold text-chocolate mb-6 text-center">
         Add a New Story
       </h1>
       <form
         onSubmit={handleAddStory}
-        className="bg-white shadow-lg p-6 rounded-lg max-w-2xl mx-auto"
+        className="bg-white shadow-lg p-3 md:p-6 rounded-lg max-w-2xl mx-auto"
       >
         <div className="mb-6">
           <label className="block text-sm font-heebo text-chocolate mb-2">

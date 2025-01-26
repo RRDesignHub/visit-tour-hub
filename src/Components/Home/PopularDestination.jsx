@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { motion } from "motion/react";
 
 export const PopularDestination = () => {
   const {data: popularPackages= [], isLoading} = useQuery({
@@ -18,7 +18,12 @@ export const PopularDestination = () => {
         <h2 className="text-2xl max-sm:mb-5 md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center mb-8">
           Popular Destinations
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div 
+        initial={{ opacity: 0, y: 50 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true }} 
+        transition={{ duration: 0.3 }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           { popularPackages.map((destination) => (
             <div
               key={destination._id}
@@ -45,7 +50,7 @@ export const PopularDestination = () => {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
 

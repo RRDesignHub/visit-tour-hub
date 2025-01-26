@@ -97,9 +97,9 @@ export const ManageCandidates = () => {
   }
   return (
     <>
-      <div className="min-h-screen bg-sand p-6">
-        <div className="container mx-auto bg-white shadow-lg rounded-xl p-8">
-          <h2 className="text-4xl text-center font-nunito font-bold text-chocolate mb-2">
+      <div className="min-h-screen bg-sand p-3 lg:p-6">
+        <div className="container mx-auto bg-white shadow-lg rounded-xl p-4 lg:p-8">
+          <h2 className="text-2xl md:text-3xl text-center font-nunito font-bold text-chocolate mb-2">
             Manage Candidates
           </h2>
           <div className="divider mt-0"></div>

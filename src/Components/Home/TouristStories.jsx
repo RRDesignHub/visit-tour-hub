@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { LoadingSpinner } from "../Shared/LoadingSpinner";
 import { Link } from "react-router-dom";
+import { motion } from "motion/react";
 
 export const TouristStories = () => {
   const {data: stories = [], isLoading} = useQuery({
@@ -16,12 +17,17 @@ export const TouristStories = () => {
     return <LoadingSpinner></LoadingSpinner>
   }
   return (
-    <section className="py-12 bg-sand">
+    <section className="py-6 lg:py-12 bg-sand">
       <div className="container mx-auto px-6 lg:px-12">
-        <h2 className="text-4xl font-nunito font-bold text-chocolate text-center mb-8">
+        <h2 className="text-3xl md:text-4xl font-nunito font-bold text-chocolate text-center mb-8">
           Tourist Stories
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
+        <motion.div 
+            initial={{ opacity: 0, y: 50 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ duration: 0.3 }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
           {stories.length > 0 && stories?.map((story) => (
             <div
               key={story._id}
@@ -53,7 +59,7 @@ export const TouristStories = () => {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
         <div className="text-center mt-8">
           <Link
             to="/community"
