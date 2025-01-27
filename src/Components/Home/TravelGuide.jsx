@@ -37,7 +37,9 @@ const TravelGuide = () => {
 
   return (
     <section className="py-6 md:py-10 lg:py-16 bg-white">
-      <div>
+      <div 
+      id="guides"
+      >
         <h2 className="text-2xl max-sm:mb-5 md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center">
           Tourism and Travel Guide
         </h2>
@@ -56,6 +58,7 @@ const TravelGuide = () => {
             whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true }} 
             transition={{ duration: 0.3 }}
+            id="book-now"
               className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {packages &&
                 packages?.map((pkg) => (
@@ -92,6 +95,7 @@ const TravelGuide = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.3 }}
               className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              
             >
               {guides.map((guide) => (
                 <div

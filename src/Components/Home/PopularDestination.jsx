@@ -18,11 +18,8 @@ export const PopularDestination = () => {
         <h2 className="text-2xl max-sm:mb-5 md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center mb-8">
           Popular Destinations
         </h2>
-        <motion.div 
-        initial={{ opacity: 0, y: 50 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.3 }}
+        <div 
+        
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           { popularPackages.map((destination) => (
             <div
@@ -42,7 +39,7 @@ export const PopularDestination = () => {
                   {destination.description}
                 </p>
                 <Link
-                  to="/packages"
+                  to={`/package-details/${destination._id}`}
                   className="block px-4 py-2 bg-terracotta text-white text-center rounded-lg hover:bg-chocolate transition"
                 >
                   View Packages
@@ -50,7 +47,7 @@ export const PopularDestination = () => {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
 

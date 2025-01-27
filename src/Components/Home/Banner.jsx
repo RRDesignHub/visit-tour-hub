@@ -17,7 +17,7 @@ const Banner = () => {
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 3500,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -46,12 +46,16 @@ const Banner = () => {
                   tropical beauty of Bangladesh's only coral island.
                 </p>
                 <div className="text-center space-x-4">
-                  <Link className="btn border-none bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
+                  <Link 
+                  to='/all-trips'
+                  className="btn border-none bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
                     Explore Packages
                   </Link>
-                  <Link className="btn bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
+                  <a
+                  href="#guides"
+                  className="btn bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
                     Find Your Guide
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
@@ -74,10 +78,14 @@ const Banner = () => {
                   the majestic Royal Bengal Tiger in its natural habitat.
                 </p>
                 <div className="text-center space-x-4">
-                  <Link className="btn border-none bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
+                  <a 
+                  href="#book-now"
+                  className="btn border-none bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
                     Book a Safari
-                  </Link>
-                  <Link className="btn bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
+                  </a>
+                  <Link 
+                  to="all-trips"
+                  className="btn bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
                     Explore More
                   </Link>
                 </div>

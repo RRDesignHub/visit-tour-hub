@@ -10,6 +10,7 @@ import { FaSackDollar } from "react-icons/fa6";
 import { TbPackages } from "react-icons/tb";
 import { FaUsersLine } from "react-icons/fa6";
 import { PiUserSwitchFill } from "react-icons/pi";
+import { FaBook } from "react-icons/fa";
 export const AdminProfile = () => {
   const { updateUserProfile } = useAuth();
   const [userData, userDataLoading] = useUser();
@@ -139,7 +140,7 @@ export const AdminProfile = () => {
 
         {/* stories */}
         <div className="bg-white flex items-center justify-center gap-4 shadow-lg rounded-lg p-6 text-center border-t-4 border-terracotta">
-          <PiUserSwitchFill className="text-6xl text-terracotta" />
+          <FaBook className="text-6xl text-terracotta" />
           <div>
             <h2 className="text-2xl font-nunito font-bold text-chocolate">
               {totalStories}
