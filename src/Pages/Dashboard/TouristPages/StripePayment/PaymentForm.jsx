@@ -84,7 +84,7 @@ export const PaymentForm = ({ myTrip }) => {
           packageId,
           touristId,
           guideId,
-          transactionId : transactionId,
+          transactionId : paymentIntent.id,
           paidAmount: price,
           currency: "usd",
           status: "paid"
@@ -111,6 +111,7 @@ export const PaymentForm = ({ myTrip }) => {
   return (
     <div>
        <form onSubmit={handlePaymentSubmit} className="bg-white p-6 rounded-lg shadow-md grid gap-4">
+        <h2 className="text-center text-xl font-heebo font-semibold">Stripe Pay:</h2>
         <div className="border rounded-lg p-4 shadow-sm">
           <CardElement
             options={{

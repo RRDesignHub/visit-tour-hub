@@ -23,7 +23,7 @@ const Banner = () => {
         pagination={{
           clickable: true,
         }}
-        navigation={true}
+        navigation={false}
         modules={[Autoplay, Pagination]}
         className="mySwiper"
       >
@@ -110,11 +110,15 @@ const Banner = () => {
                   significance of this UNESCO World Heritage Site.
                 </p>
                 <div className="text-center space-x-4">
-                  <Link className="btn border-none bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
-                    Visit Now
-                  </Link>
-                  <Link className="btn bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
-                    Discover Heritage
+                <a 
+                  href="#book-now"
+                  className="btn border-none bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
+                    Book a Safari
+                  </a>
+                  <Link 
+                  to="all-trips"
+                  className="btn bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
+                    Explore More
                   </Link>
                 </div>
               </div>

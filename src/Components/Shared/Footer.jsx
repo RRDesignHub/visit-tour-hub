@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaLinkedin } from "react-icons/fa";
 import logo from "../../assets/main_logo.jpg";
 import Container from "./Container";
 const Footer = () => {
@@ -24,7 +24,7 @@ const Footer = () => {
               <div className="flex space-x-4 mt-6">
                 {/* Social Media Links */}
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/rrdesignhub"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sand hover:text-white transition"
@@ -32,7 +32,7 @@ const Footer = () => {
                   <FaFacebookF className="w-6 h-6 hover:text-primary transition hover:scale-110" />
                 </a>
                 <a
-                  href="https://twitter.com"
+                  href="https://www.twitter.com/RipanulR18324"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sand hover:text-white transition"
@@ -40,12 +40,12 @@ const Footer = () => {
                   <FaTwitter className="w-6 h-6 hover:text-primary transition hover:scale-110" />
                 </a>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.linkedin.com/in/ripanul-alam-ridoy-ab00652a6"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sand hover:text-white transition"
                 >
-                  <FaInstagram className="w-6 h-6 hover:text-primary transition hover:scale-110" />
+                  <FaLinkedin className="w-6 h-6 hover:text-primary transition hover:scale-110" />
                 </a>
               </div>
             </div>

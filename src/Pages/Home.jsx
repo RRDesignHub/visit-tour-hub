@@ -12,9 +12,9 @@ export const Home = () => {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        // initial={{ opacity: 0 }}
+        // animate={{ opacity: 1 }}
+        // transition={{ duration: 1 }}
       >
         <Banner></Banner>
       </motion.div>

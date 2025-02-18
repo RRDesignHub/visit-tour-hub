@@ -8,21 +8,26 @@ export const MainLayout = () => {
   return (
     <>
       <motion.header
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="bg-chocolate shadow-xl"
+        // initial={{ y: -50, opacity: 0 }}
+        // animate={{ y: 0, opacity: 1 }}
+        // transition={{ duration: 0.5 }}
+        className="bg-chocolate shadow-xl fixed z-50 w-full"
       >
         <Navbar></Navbar>
       </motion.header>
-      <main className="min-h-[calc(100vh-488px)]">
+      <motion.main 
+      // initial={{ opacity: 0 }}
+      //   whileInView={{ opacity: 1 }}
+      //   viewport={{ once: true }}
+      //   transition={{ duration: 0.5 }}
+      className="pt-[62px] lg:pt-[68px] min-h-[calc(100vh-488px)]">
         <Outlet></Outlet>
-      </main>
+      </motion.main>
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        // initial={{ opacity: 0 }}
+        // whileInView={{ opacity: 1 }}
+        // viewport={{ once: true }}
+        // transition={{ duration: 0.5 }}
       >
         <Footer />
       </motion.div>

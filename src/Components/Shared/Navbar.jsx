@@ -20,10 +20,7 @@ const Navbar = () => {
     logoutUser();
   };
   return (
-    <div
-      
-      className="navbar justify-between container px-4 mx-auto"
-    >
+    <div className="navbar justify-between container px-4 mx-auto">
       <div className="">
         <Link to="/" className="flex gap-2 items-center">
           <img
@@ -37,6 +34,7 @@ const Navbar = () => {
         </Link>
       </div>
 
+      {/* menu for small/mobile device */}
       <div className="md:hidden dropdown dropdown-end z-50">
         <div
           tabIndex={0}
@@ -56,7 +54,7 @@ const Navbar = () => {
           <ul
             onBlur={handleCloseMenu}
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-sand rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-sand rounded-box w-52 space-y-1"
           >
             <li>
               <NavLink className="text-xl" to="/">
@@ -78,6 +76,14 @@ const Navbar = () => {
                 All Trips
               </NavLink>
             </li>
+
+            {user && (
+              <li>
+                <NavLink className="text-xl" to="/add-review">
+                  Add Review
+                </NavLink>
+              </li>
+            )}
 
             {!user && (
               <li>
@@ -123,22 +129,73 @@ const Navbar = () => {
         )}
       </div>
 
+      {/* menu for tab/ large device */}
       <div className="max-sm:hidden">
-        <ul className="menu menu-horizontal text-base-100 px-1">
+        <ul className="menu menu-horizontal text-base-100 px-1 space-x-1">
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `px-2 lg:px-4 py-2 rounded-lg transition duration-300 ${
+                  isActive
+                    ? "bg-blue-50 text-terracotta font-semibold border-b-4 border-[#E07A5F] active:bg-blue-50 focus:bg-blue-50 active:text-terracotta focus:text-terracotta" // Active state style with a border
+                    : "text-base-100"
+                } hover:bg-blue-100 hover:text-terracotta `
+              }
+              to="/"
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/community">Community</NavLink>
+            <NavLink 
+            className={({ isActive }) =>
+              `px-2 lg:px-4 py-2 rounded-lg transition duration-300 ${
+                isActive
+                  ? "bg-blue-50 text-terracotta font-semibold border-b-4 border-[#E07A5F] active:bg-blue-50 focus:bg-blue-50 active:text-terracotta focus:text-terracotta" // Active state style with a border
+                  : "text-base-100"
+              } hover:bg-blue-100 hover:text-terracotta `
+            }
+            to="/community">Community</NavLink>
           </li>
           <li>
-            <NavLink to="/about-us">About Us</NavLink>
+            <NavLink 
+            className={({ isActive }) =>
+              `px-2 lg:px-4 py-2 rounded-lg transition duration-300 ${
+                isActive
+                  ? "bg-blue-50 text-terracotta font-semibold border-b-4 border-[#E07A5F] active:bg-blue-50 focus:bg-blue-50 active:text-terracotta focus:text-terracotta" // Active state style with a border
+                  : "text-base-100"
+              } hover:bg-blue-100 hover:text-terracotta `
+            }
+            to="/about-us">About Us</NavLink>
           </li>
           <li>
-            <NavLink to="/all-trips">All Trips</NavLink>
+            <NavLink 
+            className={({ isActive }) =>
+              `px-2 lg:px-4 py-2 rounded-lg transition duration-300 ${
+                isActive
+                  ? "bg-blue-50 text-terracotta font-semibold border-b-4 border-[#E07A5F] active:bg-blue-50 focus:bg-blue-50 active:text-terracotta focus:text-terracotta" // Active state style with a border
+                  : "text-base-100"
+              } hover:bg-blue-100 hover:text-terracotta `
+            }
+            to="/all-trips">All Trips</NavLink>
           </li>
+          {user && (
+            <li>
+              <NavLink 
+              className={({ isActive }) =>
+                `px-2 lg:px-4 py-2 rounded-lg transition duration-300 ${
+                  isActive
+                    ? "bg-blue-50 text-terracotta font-semibold border-b-4 border-[#E07A5F] active:bg-blue-50 focus:bg-blue-50 active:text-terracotta focus:text-terracotta" // Active state style with a border
+                    : "text-base-100"
+                } hover:bg-blue-100 hover:text-terracotta `
+              }
+              to="/add-review">Add Review</NavLink>
+            </li>
+          )}
         </ul>
       </div>
+
+      {/* right profile pic with dropdown for large device */}
       <div className="flex-none max-sm:hidden">
         <ul className="menu menu-horizontal text-base-100 px-1">
           {!user && (
