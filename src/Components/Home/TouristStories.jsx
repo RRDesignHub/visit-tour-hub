@@ -17,7 +17,7 @@ export const TouristStories = () => {
     return <LoadingSpinner></LoadingSpinner>
   }
   return (
-    <section className="py-6 lg:py-12 bg-sand">
+    <section className="py-6 md:py-10 lg:py-16 bg-sand">
       <div className="container mx-auto px-6 lg:px-12">
         <h2 className="text-3xl md:text-4xl font-nunito font-bold text-chocolate text-center mb-8">
           Tourist Stories
@@ -52,7 +52,7 @@ export const TouristStories = () => {
                 </div>
                 <Link
                   to={`/story/${story._id}`}
-                  className="block px-4 py-2 bg-terracotta text-white text-center rounded-lg hover:bg-chocolate transition"
+                  className="block px-4 py-2 bg-terracotta font-heebo text-white text-center rounded-lg hover:bg-chocolate transition"
                 >
                   Read More
                 </Link>
@@ -63,7 +63,7 @@ export const TouristStories = () => {
         <div className="text-center mt-8">
           <Link
             to="/community"
-            className="px-6 py-3 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
+            className="px-6 py-3 bg-terracotta font-heebo text-white rounded-lg hover:bg-chocolate transition"
           >
             View All Stories
           </Link>

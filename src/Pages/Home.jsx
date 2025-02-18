@@ -7,6 +7,7 @@ import { TouristStories } from "../Components/Home/TouristStories";
 import TravelGuide from "../Components/Home/TravelGuide";
 
 import { motion } from "motion/react";
+import OurGuide from "../Components/Home/OurGuides";
 
 export const Home = () => {
   return (
@@ -20,8 +21,9 @@ export const Home = () => {
       </motion.div>
       <Overview></Overview>
       <TravelGuide></TravelGuide>
-      <TouristStories></TouristStories>
+      <OurGuide></OurGuide>
       <PopularDestination></PopularDestination>
+      <TouristStories></TouristStories>
       <Testimonial></Testimonial>
     </>
   );

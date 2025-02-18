@@ -48,12 +48,12 @@ const Banner = () => {
                 <div className="text-center space-x-4">
                   <Link 
                   to='/all-trips'
-                  className="btn border-none bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
+                  className="btn border-none font-heebo bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
                     Explore Packages
                   </Link>
                   <a
                   href="#guides"
-                  className="btn bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
+                  className="btn bg-transparent border-2 font-heebo border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
                     Find Your Guide
                   </a>
                 </div>
@@ -80,12 +80,12 @@ const Banner = () => {
                 <div className="text-center space-x-4">
                   <a 
                   href="#book-now"
-                  className="btn border-none bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
+                  className="btn border-none font-heebo bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
                     Book a Safari
                   </a>
                   <Link 
                   to="all-trips"
-                  className="btn bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
+                  className="btn font-heebo bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
                     Explore More
                   </Link>
                 </div>
@@ -112,12 +112,12 @@ const Banner = () => {
                 <div className="text-center space-x-4">
                 <a 
                   href="#book-now"
-                  className="btn border-none bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
+                  className="btn border-none font-heebo bg-terracotta text-[rgba(255,246,246)] hover:bg-[hsl(20,68%,63%)] uppercase">
                     Book a Safari
                   </a>
                   <Link 
                   to="all-trips"
-                  className="btn bg-transparent border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
+                  className="btn bg-transparent font-heebo border-2 border-terracotta text-terracotta hover:bg-terracotta hover:border-transparent hover:text-white uppercase">
                     Explore More
                   </Link>
                 </div>

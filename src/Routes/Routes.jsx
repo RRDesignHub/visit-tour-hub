@@ -36,6 +36,7 @@ import { UpdateAdminStory } from "../Pages/Dashboard/AdminPages/UpdateAdminStory
 import { GuideProfile } from "../Pages/GuideProfile";
 import { StoryDetails } from "../Pages/StoryDetails";
 import { AboutUs } from "../Pages/AboutUs";
+import AddReview from "../Pages/AddReview";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,12 @@ const router = createBrowserRouter([
       {
         path: "/all-trips",
         element: <AllTrips></AllTrips>,
+      },
+      {
+        path: "/add-review",
+        element: <PrivateRoute>
+          <AddReview></AddReview>
+        </PrivateRoute>,
       },
       {
         path: "/guide-details/:id",
