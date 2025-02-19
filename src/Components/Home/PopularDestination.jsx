@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { motion } from "motion/react";
 
 export const PopularDestination = () => {
   const { data: popularPackages = [], isLoading } = useQuery({

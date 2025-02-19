@@ -48,10 +48,10 @@ export const AboutUs = () => {
   return (
     <>
       <motion.div
-        // initial={{ x: 300, opacity: 0 }}
-        // animate={{ x: 0, opacity: 1 }}
-        // exit={{ x: -300, opacity: 0 }}
-        // transition={{ duration: 0.5 }}
+        initial={{ x: 300, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: -300, opacity: 0 }}
+        transition={{ duration: 0.5 }}
       >
         <motion.div 
         initial={{  opacity: 0 }}
@@ -99,10 +99,10 @@ export const AboutUs = () => {
           </h2>
           <div className="divider border-sand my-0 mb-2"></div>
           <motion.div
-            // initial={{ opacity: 0, y: 50 }}
-            // whileInView={{ opacity: 1, y: 0 }}
-            // viewport={{ once: true }}
-            // transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3 }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {projects.map((project) => (
