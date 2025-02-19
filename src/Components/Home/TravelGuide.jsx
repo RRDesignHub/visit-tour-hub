@@ -36,7 +36,7 @@ const TravelGuide = () => {
         </h2>
       </div>
       <div className="container mx-auto px-6 lg:px-12">
-      <motion.div 
+        <motion.div 
             initial={{ opacity: 0, y: 50 }} 
             whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true }} 
@@ -68,7 +68,7 @@ const TravelGuide = () => {
                     </button>
                   </div>
                 ))}
-            </motion.div>
+        </motion.div>
        
       </div>
     </section>

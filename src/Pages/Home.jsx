@@ -8,6 +8,7 @@ import TravelGuide from "../Components/Home/TravelGuide";
 
 import { motion } from "motion/react";
 import OurGuide from "../Components/Home/OurGuides";
+import Gallery from "../Components/Home/Gallery";
 
 export const Home = () => {
   return (
@@ -25,6 +26,7 @@ export const Home = () => {
       <PopularDestination></PopularDestination>
       <TouristStories></TouristStories>
       <Testimonial></Testimonial>
+      <Gallery />
     </>
   );
 };
