@@ -107,7 +107,7 @@ export default function AddReview() {
           <div className="col-span-3 w-fit mx-auto">
             <button
               type="submit"
-              className="px-6 py-3 bg-terracotta text-white font-nunito text-lg rounded-lg hover:bg-[#D96A4B] transition duration-300"
+              className="px-6 py-3 font-heebo bg-terracotta text-white text-lg rounded-lg hover:bg-[#D96A4B] transition duration-300"
             >
               Submit Review
             </button>

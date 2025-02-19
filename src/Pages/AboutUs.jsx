@@ -131,7 +131,7 @@ export const AboutUs = () => {
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
+                    className="px-4 py-2 font-heebo bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
                   >
                     View Project
                   </a>

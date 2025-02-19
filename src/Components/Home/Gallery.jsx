@@ -36,7 +36,7 @@ const galleryData = {
       name: "Rangamati",
     },
   ],
-  Cities: [
+ Historycal: [
     {
       id: 7,
       img: "https://i.ibb.co.com/RhCY9Hk/Sixty-dome-mosque.jpg",
@@ -56,7 +56,7 @@ const Gallery = () => {
   return (
     <div className="py-6 md:py-10 lg:py-16 bg-sand">
       <Tabs defaultValue="Beaches" className="container mx-auto px-6 lg:px-12">
-        <TabsList className="flex justify-between gap-4 bg-white px-4 py-5 rounded-lg">
+        <TabsList className="flex flex-col md:flex-row justify-center max-sm:items-center md:justify-between bg-white px-4 py-5 rounded-lg">
           <h2 className="text-2xl max-sm:mb-5 md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center mb-0">
             Explore Our Destinations
           </h2>
@@ -64,7 +64,7 @@ const Gallery = () => {
             {Object.keys(galleryData).map((place) => (
               <TabsTrigger
                 key={place}
-                className="data-[state=active]:bg-terracotta data-[state=active]:text-chocolate data-[state=active]:font-semibold px-4 py-2 rounded-lg transition-all"
+                className="font-heebo data-[state=active]:bg-terracotta data-[state=active]:text-chocolate data-[state=active]:font-semibold px-4 py-2 rounded-lg transition-all"
                 value={place}
                 onClick={() => setSelectedTab(place)}
               >

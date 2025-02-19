@@ -34,31 +34,31 @@ export const AllTrips = () => {
           {packages.map((trip) => (
             <div
               key={trip._id}
-              className="bg-sand border rounded-lg shadow-lg overflow-hidden"
+              className="card bg-sand border rounded-lg shadow-lg overflow-hidden"
             >
               <img
                 src={trip.images[0]}
                 alt={trip.title}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-4">
-                <h2 className="text-xl font-nunito font-bold text-chocolate">
+                <h2 className="text-xl font-nunito font-bold text-chocolate px-4 mt-2">
                   {trip.title}
                 </h2>
-                <p className="text-sm font-heebo text-gray-600 mt-2">
+                <p className="text-sm font-heebo text-gray-600 mt-2 px-4 mb-2">
                   {trip.description.slice(0, 100)}...
                 </p>
-                <div className="flex justify-between items-center mt-4">
+                
+                <div className="flex-grow"></div>
+                <div className="px-4 pb-4 flex justify-between items-center ">
                   <p className="text-lg font-heebo font-bold text-terracotta">
                     ${trip.price}
                   </p>
                   <Link to={`/package-details/${trip._id}`}>
-                    <button className="px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate transition">
+                    <button className="px-4 py-2 font-heebo bg-terracotta text-white rounded-lg hover:bg-chocolate transition">
                       Details
-                    </button>
+                    </button> 
                   </Link>
                 </div>
-              </div>
             </div>
           ))}
         </div>

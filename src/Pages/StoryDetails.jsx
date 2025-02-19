@@ -21,7 +21,7 @@ export const StoryDetails = () => {
       <div className="mb-6">
         <Link
           to="/community"
-          className="px-4 py-2 bg-terracotta text-white rounded-lg hover:bg-chocolate transition"
+          className="px-4 py-2 bg-terracotta font-heebo text-white rounded-lg hover:bg-chocolate transition"
         >
           &larr; Back to Stories
         </Link>
