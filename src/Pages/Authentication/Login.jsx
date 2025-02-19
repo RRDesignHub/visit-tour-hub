@@ -85,7 +85,7 @@ const Login = () => {
           </TabList>
 
           <TabPanel>
-            <div className="flex justify-center items-center gap-3 flex-col md:flex-row">
+            <div className="flex justify-center items-center md:gap-3 flex-col md:flex-row">
               <p className="text-gray-600 text-sm my-2">
                 Email: <strong>{sampleUsers.tourist.email}</strong>
               </p>
@@ -96,7 +96,7 @@ const Login = () => {
             </div>
           </TabPanel>
           <TabPanel>
-          <div className="flex justify-center items-center gap-3 flex-col md:flex-row">
+          <div className="flex justify-center items-center md:gap-3 flex-col md:flex-row">
               <p className="text-gray-600 text-sm my-2">
                 Email: <strong>{sampleUsers.guide.email}</strong>
               </p>
@@ -107,7 +107,7 @@ const Login = () => {
             </div>
           </TabPanel>
           <TabPanel>
-          <div className="flex justify-center items-center gap-3 flex-col md:flex-row">
+          <div className="flex justify-center items-center md:gap-3 flex-col md:flex-row">
               <p className="text-gray-600 text-sm my-2">
                 Email: <strong>{sampleUsers.admin.email}</strong>
               </p>

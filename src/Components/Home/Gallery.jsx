@@ -60,11 +60,11 @@ const Gallery = () => {
           <h2 className="text-2xl max-sm:mb-5 md:text-3xl lg:text-4xl font-nunito font-bold text-chocolate text-center mb-0">
             Explore Our Destinations
           </h2>
-          <div>
+          <div className="max-sm:space-x-2">
             {Object.keys(galleryData).map((place) => (
               <TabsTrigger
                 key={place}
-                className="font-heebo data-[state=active]:bg-terracotta data-[state=active]:text-chocolate data-[state=active]:font-semibold px-4 py-2 rounded-lg transition-all"
+                className="font-heebo data-[state=active]:bg-terracotta data-[state=active]:text-sand data-[state=active]:font-semibold px-2 md:px-4 py-2 rounded-lg transition-all"
                 value={place}
                 onClick={() => setSelectedTab(place)}
               >
